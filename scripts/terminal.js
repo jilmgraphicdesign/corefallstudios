@@ -48,7 +48,7 @@ ${worldText}
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
-      '/proxy_penny': ['world.txt']
+      '/proxy_penny': ['virus']
     },
     files: {
       '/readme.txt': readmeHtml,
@@ -60,7 +60,7 @@ ${worldText}
         'ctx: Aegisflame | Underwatch | Ciphers | Unknown New Faction',
       '/secrets/worm.map':
         'signal spikes in sub-surface tunnels within the game are not coded, where did they come from? Launch new update as soon as possible.',
-      '/proxy_penny/world.txt': worldText
+      '/proxy_penny/virus': 'WARNING New Virus Detected ---- proxy_penny altering Corefall [WARNING] COREFALL INFECTED UTOPIA INFECTED'
     }
   };
 
