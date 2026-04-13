@@ -272,12 +272,12 @@ input,textarea{background:#0a0e19;color:var(--text);border:1px solid #25355a;bor
 }
 .faction{ display:grid; gap:10px; }
 .faction__logo{
-  height:64px; display:grid; place-items:center;
+  height:400px; display:grid; place-items:center;
   background: rgba(12,15,26,.35);
   border:1px dashed rgba(37,53,90,.6);
   border-radius: 12px;
 }
-.faction__logo img{ max-height:48px; width:auto; opacity:.9; }
+.faction__logo img{ max-height:300px; width:auto; opacity:.9; }
 /* ================================
    Intranet Lime Theme
    ================================ */
