@@ -83,7 +83,6 @@ ${worldText}
     blank();
     println('Good starting commands:', true, '#FFD866');
     listItems([
-      'help  → see all available commands',
       'ls    → view items in the current location',
       'cd /logs → go to the corefall data folder',
       'cat readme.txt  → you have 1 message unread on terminal from unknown sender',
@@ -335,11 +334,8 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     println('Try this path:', true, '#FFD866');
     listItems([
       'cat readme.txt',
-      'cd /proxy_penny',
-      'cat world.txt',
-      'cd /utopia',
       'ls',
-      'run disable_safe_mode'
+      'oog logs'
     ]);
   }
 
