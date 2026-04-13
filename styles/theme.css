@@ -253,7 +253,7 @@ input,textarea{background:#0a0e19;color:var(--text);border:1px solid #25355a;bor
 }
 .person{ display:grid; grid-template-rows:auto 1fr; gap:12px; }
 .person__media{
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 3 / 3;
   background: rgba(12,15,26,.45);
   border:1px solid rgba(37,53,90,.6);
   border-radius: calc(var(--round) - 6px);
