@@ -135,8 +135,8 @@ ${worldText}
     listItems([
       'help  → see all available commands',
       'ls    → view items in the current location',
-      'cd /utopia  → go to the programs folder',
-      'cat readme.txt  → open the portal + message',
+      'cd /logs → go to the corefall data folder',
+      'cat readme.txt  → you have 1 message unread on terminal from unknown sender',
       'hint  → get a suggested next step'
     ]);
 
