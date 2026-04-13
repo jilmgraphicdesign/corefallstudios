@@ -1,73 +1,257 @@
-
-window.unlockAdmin = function(){
+window.unlockAdmin = function () {
   const input = document.getElementById('passphrase');
   const ok = /\bWAKE\s+THE\s+CORE\b/i.test(input.value);
   const gateMsg = document.getElementById('gateMsg');
-  if (ok){
+
+  if (ok) {
     document.getElementById('gate').classList.add('hidden');
     document.getElementById('terminalWrap').classList.remove('hidden');
     startTerminal();
     window._corefall && window._corefall.playGlitch();
   } else {
-    gateMsg.textContent = 'Nope. Decode the three Intel strings (Base64) and enter as a 3-word phrase.';
+    gateMsg.textContent =
+      'Incorrect passphrase. Decode the three Intel strings (Base64) and enter the 3-word phrase.';
   }
 };
 
-function startTerminal(){
+function startTerminal() {
   const out = document.getElementById('terminalOutput');
   const input = document.getElementById('terminalInput');
+  const form = document.getElementById('terminalForm');
+
   const state = {
     cwd: '/',
     fs: {
-      '/': ['bin','logs','secrets','readme.txt'],
-      '/bin': ['disable_safe_mode*','destroy_system*','exfiltrate*'],
-      '/logs': ['alerts.log','attacks.feed'],
-      '/secrets': ['cipher.key','worm.map']
+      '/': ['bin', 'logs', 'secrets', 'readme.txt'],
+      '/bin': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
+      '/logs': ['alerts.log', 'attacks.feed'],
+      '/secrets': ['cipher.key', 'worm.map']
     },
     files: {
-      '/readme.txt': '<a data-bleed href="proxy_penny/readme.txt">read me</a>',
-      '/logs/alerts.log': '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode',
-      '/logs/attacks.feed': 'hashes: 9f4a.. 7a2e.. origin: Steel City nodes?',
-      '/secrets/cipher.key': 'ctx: Aegisflame | Underwatch | Ciphers',
-      '/secrets/worm.map': 'signal spikes in sub-surface tunnels within the game are not coded, where did they come from?'
+      '/readme.txt': 'read me',
+      '/logs/alerts.log':
+        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode',
+      '/logs/attacks.feed':
+        'hashes: 9f4a.. 7a2e.. origin: Steel City nodes?',
+      '/secrets/cipher.key':
+        'ctx: Aegisflame | Underwatch | Ciphers',
+      '/secrets/worm.map':
+        'signal spikes in sub-surface tunnels within the game are not coded, where did they come from?'
     }
   };
 
-  println('Corefall Admin Console');
-  println('Type "help" for commands.');
-  prompt();
+  let initialized = false;
 
-  function prompt(){ println(`\n${state.cwd} $ `, false); }
-  function println(s, nl=true){ out.insertAdjacentHTML('beforeend', escapeHtml(s) + (nl?'\n':'')); out.scrollTop = out.scrollHeight; }
-  function escapeHtml(s){ return s.replace(/[&<>]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;' }[c])); }
-  function pathJoin(a,b){ if (b.startsWith('/')) return b; if (a.endsWith('/')) return a+b; return a+'/'+b; }
-  function isDir(path){ return state.fs[path] !== undefined; }
-  function list(path){ return (state.fs[path]||[]).join('  '); }
+  initTerminal();
 
-  document.getElementById('terminalForm').addEventListener('submit', ()=>{
-    const cmdline = input.value.trim(); input.value='';
-    println(cmdline);
+  function initTerminal() {
+    if (initialized) return;
+    initialized = true;
+
+    section('Corefall Admin Console');
+    println('Welcome. This is a simulated terminal interface.');
+    println('You do not need coding experience to use it.', true, '#9CDCFE');
+
+    blank();
+    println('Good starting commands:', true, '#FFD866');
+    listItems([
+      'help  → see all available commands',
+      'ls    → view items in the current location',
+      'cd /bin  → go to the programs folder',
+      'hint  → get a suggested next step'
+    ]);
+
+    blank();
+    println('Type a command below and press Enter.', true, '#FFD866');
+    prompt();
+
+    form.addEventListener('submit', onSubmit);
+  }
+
+  function onSubmit(e) {
+    e.preventDefault();
+
+    const cmdline = input.value.trim();
+    input.value = '';
+
+    if (!cmdline) {
+      prompt();
+      return;
+    }
+
+    userLine(cmdline);
+
     const [cmd, ...args] = cmdline.split(/\s+/);
-    switch ((cmd||'').toLowerCase()){
-      case 'help': println('Commands: help, files, folders, ls, cd <folder>, cat <file>, run <prog>, oog data logs, clear, hint'); break;
-      case 'ls': println(list(state.cwd)); break;
-      case 'cd': {
-        const dest = args[0] ? pathJoin(state.cwd, args[0]) : '/';
-        if (isDir(dest)) state.cwd = dest; else println('No such directory.');
-        println(state.cwd); break;
-      }
-      case 'cat': {
-        const file = args[0]? pathJoin(state.cwd, args[0]) : '';
-        if (state.files[file]) println(state.files[file]); else println('No such file.');
-        break;
-      }
-      case 'oog': {
-  // allow: oog data logs
-  const sub = (args.join(' ') || '').toLowerCase();
-  if (sub === 'data logs') {
-    println(`
 
-P[OOG-MON] 2025-08-19T02:03:11Z env=prod actor=CIPHERS trigger=driver.tap
+    switch ((cmd || '').toLowerCase()) {
+      case 'help':
+        showHelp();
+        break;
+
+      case 'ls':
+        showLs();
+        break;
+
+      case 'cd':
+        changeDirectory(args);
+        break;
+
+      case 'cat':
+        readFile(args);
+        break;
+
+      case 'oog':
+        handleOog(args);
+        break;
+
+      case 'folders':
+        if (args[0]) {
+          handleRun(args[0].replace(/\*$/, ''));
+        } else {
+          showFolders();
+        }
+        break;
+
+      case 'files':
+        if (args[0]) {
+          handleRun(args[0].replace(/\*$/, ''));
+        } else {
+          showFiles();
+        }
+        break;
+
+      case 'run':
+        if (!args[0]) {
+          errorLine('You need to specify a program name.');
+          tipLine('Try: cd /bin');
+          tipLine('Then: ls');
+          tipLine('Then: run disable_safe_mode');
+        } else {
+          handleRun(args[0].replace(/\*$/, ''));
+        }
+        break;
+
+      case 'clear':
+        out.textContent = '';
+        section('Screen Cleared');
+        println('Terminal ready.', true, '#9CDCFE');
+        break;
+
+      case 'hint':
+        showHint();
+        break;
+
+      default:
+        errorLine('Command not found.');
+        tipLine('Type "help" to see available commands.');
+        break;
+    }
+
+    prompt();
+  }
+
+  function showHelp() {
+    section('Available Commands');
+
+    println('Navigation', true, '#4EC9B0');
+    listItems([
+      'ls → list items in the current folder',
+      'cd <folder> → move into a folder',
+      'cd / → return to the main folder'
+    ]);
+
+    blank();
+    println('Viewing Files', true, '#4EC9B0');
+    listItems([
+      'cat <file> → open a file',
+      'files → show all known files',
+      'folders → show all folders'
+    ]);
+
+    blank();
+    println('Actions', true, '#4EC9B0');
+    listItems([
+      'run <program> → execute a program',
+      'clear → clear the screen',
+      'hint → get a suggested next step'
+    ]);
+
+    blank();
+    println('Special', true, '#4EC9B0');
+    listItems([
+      'oog data logs → view anomaly logs'
+    ]);
+  }
+
+  function showLs() {
+    const items = state.fs[state.cwd] || [];
+
+    section(`Contents of ${state.cwd}`);
+
+    if (!items.length) {
+      println('This folder is empty.', true, '#9CDCFE');
+      return;
+    }
+
+    items.forEach((item) => {
+      if (item.endsWith('*')) {
+        println(`⚙ Program: ${item.replace(/\*$/, '')}`, true, '#4FC1FF');
+      } else if (isDir(pathJoin(state.cwd, item))) {
+        println(`📁 Folder: ${item}`, true, '#C586C0');
+      } else {
+        println(`📄 File: ${item}`, true, '#DCDCAA');
+      }
+    });
+  }
+
+  function changeDirectory(args) {
+    const rawDest = args[0];
+
+    if (!rawDest) {
+      state.cwd = '/';
+      println('Moved to the main folder: /', true, '#9CDCFE');
+      return;
+    }
+
+    const dest = normalizePath(pathJoin(state.cwd, rawDest));
+
+    if (isDir(dest)) {
+      state.cwd = dest;
+      println(`Now in: ${state.cwd}`, true, '#9CDCFE');
+    } else {
+      errorLine('That folder does not exist.');
+      tipLine('Use "ls" to see available folders.');
+    }
+  }
+
+  function readFile(args) {
+    const rawFile = args[0];
+
+    if (!rawFile) {
+      errorLine('You need to specify a file name.');
+      tipLine('Example: cat readme.txt');
+      return;
+    }
+
+    const file = normalizePath(pathJoin(state.cwd, rawFile));
+
+    if (state.files[file]) {
+      section(`File: ${file}`);
+      printMultiline(state.files[file], '#DCDCAA');
+    } else {
+      errorLine('That file does not exist.');
+      tipLine('Use "ls" to see files in this folder.');
+    }
+  }
+
+  function handleOog(args) {
+    const sub = (args.join(' ') || '').toLowerCase();
+
+    if (sub === 'data logs') {
+      section('OOG Data Logs');
+
+      printMultiline(
+`P[OOG-MON] 2025-08-19T02:03:11Z env=prod actor=CIPHERS trigger=driver.tap
 E  effect="Dungeon timer freeze" zone="Breachport" duration=90s anomaly=worm-pulse
 
 N[OOG-MON] 2025-08-20T00:22:48Z env=prod actor=CIPHERS trigger=api.spoof
@@ -80,66 +264,168 @@ N[OOG-MON] 2025-08-20T05:10:21Z env=prod actor=CIPHERS trigger=leaderboard.ghost
 O  effect="Leaderboard thrash" swaps=214 suspect_ids=8
 
 W[MITIGATION] 2025-08-21T12:34:02Z rulepush=v0.9.21 actions=rate-limit,event-invalidation status=applied
-S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="hash:7a2e..9f4a"
-
-`);
-  } else {
-    println("usage: oog data logs");
-  }
-  break;
-}
-      case 'folders': {
-        const prog = args[0]; if (!prog){ println('/bin,/logs,/secrets,/readme.txt'); break; }
-        handleRun(prog.replace(/\*$/,'')); break;
-      }
-      case 'files': {
-        const prog = args[0]; if (!prog){ println('/readme.txt, /logs/alerts.log, /logs/attacks.feed, /secrets/cipher.key, /secrets/worm.map'); break; }
-        handleRun(prog.replace(/\*$/,'')); break;
-      }
-      case 'run': {
-        const prog = args[0]; if (!prog){ println('run what? see /bin'); break; }
-        handleRun(prog.replace(/\*$/,'')); break;
-      }
-      case 'clear': out.textContent=''; break;
-      case 'hint': println('Try: cd /bin  →  ls  →  run disable_safe_mode'); break;
-      default: println('Command not found. (help)');
+S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="hash:7a2e..9f4a"`,
+        '#CE9178'
+      );
+    } else {
+      errorLine('Invalid OOG command.');
+      tipLine('Use: oog data logs');
     }
-    prompt();
-  });
+  }
 
-  function handleRun(name){
-    switch(name){
+  function showFolders() {
+    section('All Folders');
+    listItems([
+      '/',
+      '/bin',
+      '/logs',
+      '/secrets'
+    ]);
+  }
+
+  function showFiles() {
+    section('All Files');
+    listItems([
+      '/readme.txt',
+      '/logs/alerts.log',
+      '/logs/attacks.feed',
+      '/secrets/cipher.key',
+      '/secrets/worm.map'
+    ]);
+  }
+
+  function showHint() {
+    section('Suggested Next Step');
+    println('Try this path:', true, '#FFD866');
+    listItems([
+      'cd /bin',
+      'ls',
+      'run disable_safe_mode'
+    ]);
+  }
+
+  function handleRun(name) {
+    switch (name) {
       case 'disable_safe_mode':
-        println('[*] Toggling safe mode…');
+        section('Running Program');
+        println('Launching: disable_safe_mode', true, '#4FC1FF');
+        println('Please wait...', true, '#9CDCFE');
         glitch('Safe mode DISABLED. Simulation boundaries thinning…');
-        setTimeout(()=> location.href='outcomes/disable.html', 900);
+        setTimeout(() => {
+          location.href = 'outcomes/disable.html';
+        }, 900);
         break;
+
       case 'destroy_system':
-        println('[*] Initiating self-destruct… 3…2…1…');
+        section('Running Program');
+        println('Launching: destroy_system', true, '#4FC1FF');
+        warningLine('Self-destruct sequence initiated...');
+        println('3... 2... 1...', true, '#F44747');
         meltdown();
-        setTimeout(()=> location.href='outcomes/destroy.html', 1200);
+        setTimeout(() => {
+          location.href = 'outcomes/destroy.html';
+        }, 1200);
         break;
+
       case 'exfiltrate':
-        println('[*] Packaging logs & secrets…');
-        setTimeout(()=>{
-          println('Exfiltration complete → artifacts exported.');
-          location.href='outcomes/exfiltrate.html';
+        section('Running Program');
+        println('Launching: exfiltrate', true, '#4FC1FF');
+        println('Packaging logs and secrets...', true, '#9CDCFE');
+        setTimeout(() => {
+          println('Exfiltration complete. Artifacts exported.', true, '#4EC9B0');
+          location.href = 'outcomes/exfiltrate.html';
         }, 1000);
         break;
+
+      default:
+        errorLine(`Unknown program: ${name}`);
+        tipLine('Use "cd /bin" and then "ls" to see available programs.');
+        break;
     }
   }
 
-  function glitch(msg){
+  function prompt() {
+    blank();
+    println(`Current location: ${state.cwd}`, true, '#569CD6');
+    println('Enter command below.', true, '#808080');
+  }
+
+  function blank() {
+    out.insertAdjacentHTML('beforeend', '\n');
+    out.scrollTop = out.scrollHeight;
+  }
+
+  function section(title) {
+    println(`=== ${title.toUpperCase()} ===`, true, '#4FC1FF');
+  }
+
+  function userLine(text) {
+    println(`> ${text}`, true, '#FFFFFF');
+  }
+
+  function listItems(items) {
+    items.forEach((item) => println(` • ${item}`, true, '#D4D4D4'));
+  }
+
+  function tipLine(text) {
+    println(`Tip: ${text}`, true, '#FFD866');
+  }
+
+  function warningLine(text) {
+    println(`Warning: ${text}`, true, '#FFB347');
+  }
+
+  function errorLine(text) {
+    println(`Error: ${text}`, true, '#F44747');
+  }
+
+  function printMultiline(text, color = null) {
+    text.split('\n').forEach((line) => println(line, true, color));
+  }
+
+  function println(text = '', nl = true, color = null) {
+    const safe = escapeHtml(String(text));
+    const html = `<span style="color:${color || '#00ff9c'}">${safe}</span>${nl ? '\n' : ''}`;
+    out.insertAdjacentHTML('beforeend', html);
+    out.scrollTop = out.scrollHeight;
+  }
+
+  function escapeHtml(s) {
+    return s.replace(/[&<>]/g, (c) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;'
+    }[c]));
+  }
+
+  function pathJoin(a, b) {
+    if (!b) return a;
+    if (b.startsWith('/')) return b;
+    if (a === '/') return '/' + b;
+    return a + '/' + b;
+  }
+
+  function normalizePath(path) {
+    return path.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
+  }
+
+  function isDir(path) {
+    return state.fs[path] !== undefined;
+  }
+
+  function glitch(msg) {
     const e = document.createElement('div');
     e.className = 'glitch';
     e.textContent = msg;
     document.getElementById('terminalWrap').appendChild(e);
-    setTimeout(()=> e.remove(), 800);
+    setTimeout(() => e.remove(), 800);
     window._corefall && window._corefall.playGlitch();
   }
 
-  function meltdown(){
+  function meltdown() {
     document.body.style.animation = 'shake .18s infinite';
-    setTimeout(()=>{ document.body.style.animation='none'; }, 1000);
+    setTimeout(() => {
+      document.body.style.animation = 'none';
+    }, 1000);
   }
 }
