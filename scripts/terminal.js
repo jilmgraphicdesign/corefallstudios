@@ -19,16 +19,89 @@ function startTerminal() {
   const input = document.getElementById('terminalInput');
   const form = document.getElementById('terminalForm');
 
+  const worldPortalUrl =
+    'https://jilmgraphicdesign.github.io/corefallstudios/proxy_penny/world.html';
+
+  const worldText = `If you crawled here, you're on the right track. 
+
+Please find me. 
+
+This world is not what it seems. 
+
+Find the Utopia file.
+
+                                       ,~OOO+:O=+:+oo,:~~.; ;~:-~~+++~=-;=+=-,~:--,=+*ooaaaaaa. O%@@@@@@@@@%                                      
+                                        ;+=@A* ;+o;;.;~~~~..:-::~:-~;:  ,;;. ~~---- :-+*ooo*+ , *O%%@@@@@@@%                                      
+                                        ;oo: +-+-,=;~~;;;;..    O@oa#8888A%%o .;~:::~~:-++== + ,*O%%%AO@@@@%                                      
+                                        . ,=oo-,, ..;;;,  ~~%#&8@@@@@@@@@@@@@@@@8a;;~  :-- ,-~ +oaoaO%AO@@@%                                      
+                                        .     ;;. .;. .;@@@@@8&@@@@@@@@@@@@@@@@@@@@@A+===:+*;oo***- oA+- @@%                                      
+                                       ..    .;~= @ 8  A *   ;A@ a@ @@  ,  ,@ o   @o  @  * , # ~= =*oOOaa&@A                                      
+                                       ..       *    @.@ =a@-*@ O@&  @ , a   A:  :8 @ @;a;.@ @ =+*oaaaaaa*&A                                      
+                                       .,          O#%@@&@@@8@@@A,       ..;:#@@@@@@@a@@@@~-==+**ooooaaaaa*O                                      
+                                       ,,         a&@@@@@@@@ #@ :        ~+ @ # @ @ @@@@@@o +++++**oooaaaa*O                                      
+                                       ,,        *#@@@@@@@@@@@@@&O@@@@@@@@O8@@@@@@@@@@@#@@@+;;;;;-=+*oooao+O                                      
+                                       ,,       :A&@@@@@@A#@@@#                ~+@@@@@@*-=@@, .;;~;~~=ooaa*O                                      
+                                       ,.       =%A@@8@@@@@@@#,               .:=o@@@@@&=-~+@@~.;~;~:-=oaaoO                                      
+                                       ,.      aaOA@@@@@&@@@@=            :o%#8&#&#@@@@@#O&; @@.;~,;~:::==oO                                      
+                                       ,,    :OOA@8@@@@@oA@@*;*o+~       ;:--:~::=%8@@@@@8@@@@@, .;;;;;~~~;O                                      
+                                       ;,     &8@@@@8@@@@&@@-, ,.       ;--,@O8@&O%%@@@@@@@@@@@@@&; .;;;,,.a                                      
+                                       ;,    .&@@@@@#@#A@@@@@@@O,:,.    -:. A#~ A@%a@@@@@@@~@@+ @@@@8*  ,; a                                      
+                                       ;;     %&@@@@@@%@8@@O8%o,        ;.    ~:-,;=@@@@@@@@@@A, o@@@@@@o,.O                                      
+                                       ~,     8@@@@@8@@&@@@#%#-         .;.      ..;*@@@@@o-@@#=; -@@@@#O%aA                                      
+                                       ~;     A @@@@@@@@@88+oa=          ,,      .,;a@@@@@A@@@&=   @@@@@8a:%                                      
+                                       ~;     ~,@@8a@@8@@#o-A:            ;.    .,,~#@@@@@ @@@&o~  o@@@@@@##                                      
+                                       ~;     aA@@&88@@@@@+a,;     ,;. ;A&*;......~+#@@@@@@@@@%o    o@@@@@@&                                      
+                                       :;   -a ;o@@@@@@@@@o, .         .       .,~+*8@@@@@@@@8+;~%#&@@8@@@@&                                      
+                                       :;     ,=+@@@@@@@@@&. .  .;~*OAaA+-o#@&-,,:=o@@@@@@@@@88@88#AAo.~&@@&                                      
+                                       :;      ~:,o8@@@@@@@#     ,+;   .;;  .=;.,:*@@@@@@@@@8o~=;#O;=-*=,+%#                                      
+                                       :;          #&@@@@@@@#      ;;,. .~-*O+-;:O@@@@@@@@@8O=;.     .~=-O A                                      
+                                       -;       , ,&@@@@@@@@@@o        ... .;=-+@@@@@@@@@@@A*;;.          ,A                                      
+                                       -,          +A%A8@@@@@@@8o.          :a@@@@@@@@@@@=#+,. .           A                                      
+                                       -,         -*oo8#@@@@@@@@AA@O      -a#8@@@@@@@@@@@@8#O*o+.          A                                      
+                                       -;       *+%Oao&@@@*--*@@-,@O,,-*aOAAAAAa*+*A@%A+%@@@@A%%&O         A                                      
+                                       =; ,    .8A&o+=A@@@o  .~a:o ,      ,;~~~;  ..;,  o@@@@O%A@@%:       A                                      
+                                       =:       8*O-=-+&@@8;   .                        O@8@@OAO&@@ -      A                                      
+                                       =~      :@o%=;=a%@@@&                           ,@@A#A+**A@@ .-     A                                      
+                                       =;      %A-*,  ,+@@@@*                          @@@oaO~--A@@  ,=-   %                                      
+                                       =;      &O=*:. ;:@@@@8,                       =@@@@oa*~-~o@@   ,+,  %                                      
+                                       +;      #:+-,.., @@@@@8                      &@@@@# -- +=A@@   .;*  %                                      
+                                       +;      &a+O*=~=a@@@@@@8=                  *@@@@@@#AO***=O@@  ..,-+ #                                      
+                                       +;      &A=O+; =a@@@@@@@@-                O@@@@@@@&8&o*O*#@@....;:o,&                                      
+                                       +;      8%-a=  *O@@@@@@@@.               O@@@@@@@@8@@o:aO@@*;;,,;:*O&                                      
+                                       +;      @&%%Oo#aa@@@@@@@@                @@@@@@@@@A88@*%O@@+,,,,;-*a8                                      
+                                       *~     -%aA888#*-+*+&@@@@~              @@@@@%+ .~a*@@@@+=&~,,,;:-*o8                                      
+                                       *~      oOa=a~ ,a+*:+ ,**&*~. +*o ;,=-:--~ ~&&%;,,+aA@@@*+*=;;;~:=*o@                                      
+                                       *~      *#%OOo-~-~a ;. +%8o*=-a%A ~=oOOa=  ,*ooa:a%@@@@@8@#o:---=+oo@                                      
+                                       *~      -8&&A+oO%#A*+:::@#AaaaA%A::oA#&%&%AoO@@@&8&@@@@@@@#@+++++oao@                                      
+                                       o:      :8A#oO+%&%o*oa%@@@%AA%8@&Oaa&8@&@&&O%@@@&%8@@@@@@@@@#+ooooao@                                      
+                                       o:      +8##a;*#8&ooa&8@@@&%#%&#%*~*@#@@@@A#O@@@@@@@@@@@@@@@@Aaaaaaa@                                      
+                                       o:     ,a%o;:-%&&O-OAO@@@8#aoO##%;-a&#@@8@#8#@@@&O&8@@@@@@@@@@AAAOAO@                                      
+                                       o:     ;%%%-, Oaa;-=*8@@@O-~.*aAa~~=A+a%OAA&A@@8O@#O@@@@@@@@@@@&##%A@                                      
+                                       o-    ,=&%=::aOAa   -##%ao    ;O:   =OaA&&8@#@@@@AO8@@@@@@@@@@@@@8&#@                                      
+                                       a=    ~o@O-~,o%O+o~*&A#O=o:; =O%=. :a+##8@@8a&@@@A#@@@@@@@@@@@@@@@8&@                                      
+                                       O+   ;+#@#AO%#AO,-*O#8#Oa*-= +%#+ ,-Ao@@@@8@8@@@@@@@@@@@@@@@@@@@@@@8@                                      
+                                       A*  ,:o@@Aao%@@#%o#8a&8&AAaa+AA%aaa%@@@@@@@@&@@@@@@@@@@@@@@@@@@@@@@@@                                      
+                                       &O.;-a8@@@#%@@&A=A%#88@&@#AA@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`;
+
+  const readmeHtml = `
+<a href="${worldPortalUrl}" target="_blank" rel="noopener noreferrer" style="color:#4FC1FF; text-decoration:underline;">
+🌐 Open World Portal
+</a>
+
+${worldText}
+`;
+
   const state = {
     cwd: '/',
     fs: {
-      '/': ['bin', 'logs', 'secrets', 'readme.txt'],
-      '/bin': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
+      '/': ['utopia', 'logs', 'secrets', 'proxy_penny', 'readme.txt'],
+      '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/logs': ['alerts.log', 'attacks.feed'],
-      '/secrets': ['cipher.key', 'worm.map']
+      '/secrets': ['cipher.key', 'worm.map'],
+      '/proxy_penny': ['world.txt']
     },
     files: {
-      '/readme.txt': 'read me',
+      '/readme.txt': readmeHtml,
       '/logs/alerts.log':
         '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode',
       '/logs/attacks.feed':
@@ -36,7 +109,8 @@ function startTerminal() {
       '/secrets/cipher.key':
         'ctx: Aegisflame | Underwatch | Ciphers',
       '/secrets/worm.map':
-        'signal spikes in sub-surface tunnels within the game are not coded, where did they come from?'
+        'signal spikes in sub-surface tunnels within the game are not coded, where did they come from?',
+      '/proxy_penny/world.txt': worldText
     }
   };
 
@@ -49,15 +123,20 @@ function startTerminal() {
     initialized = true;
 
     section('Corefall Admin Console');
-    println('Welcome. This is a simulated terminal interface.');
-    println('You do not need coding experience to use it.', true, '#9CDCFE');
+    println('Welcome Back Arne Kolbeck.');
+    println(
+      'If you need any assistance using the terminal please refer to the Terminal Help page in your Admin Portal.',
+      true,
+      '#9CDCFE'
+    );
 
     blank();
     println('Good starting commands:', true, '#FFD866');
     listItems([
       'help  → see all available commands',
       'ls    → view items in the current location',
-      'cd /bin  → go to the programs folder',
+      'cd /utopia  → go to the programs folder',
+      'cat readme.txt  → open the portal + message',
       'hint  → get a suggested next step'
     ]);
 
@@ -123,7 +202,7 @@ function startTerminal() {
       case 'run':
         if (!args[0]) {
           errorLine('You need to specify a program name.');
-          tipLine('Try: cd /bin');
+          tipLine('Try: cd /utopia');
           tipLine('Then: ls');
           tipLine('Then: run disable_safe_mode');
         } else {
@@ -237,7 +316,12 @@ function startTerminal() {
 
     if (state.files[file]) {
       section(`File: ${file}`);
-      printMultiline(state.files[file], '#DCDCAA');
+
+      if (file === '/readme.txt') {
+        println(state.files[file], true, '#DCDCAA', true);
+      } else {
+        printMultiline(state.files[file], '#DCDCAA');
+      }
     } else {
       errorLine('That file does not exist.');
       tipLine('Use "ls" to see files in this folder.');
@@ -277,9 +361,10 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     section('All Folders');
     listItems([
       '/',
-      '/bin',
+      '/utopia',
       '/logs',
-      '/secrets'
+      '/secrets',
+      '/proxy_penny'
     ]);
   }
 
@@ -290,7 +375,8 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
       '/logs/alerts.log',
       '/logs/attacks.feed',
       '/secrets/cipher.key',
-      '/secrets/worm.map'
+      '/secrets/worm.map',
+      '/proxy_penny/world.txt'
     ]);
   }
 
@@ -298,7 +384,10 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     section('Suggested Next Step');
     println('Try this path:', true, '#FFD866');
     listItems([
-      'cd /bin',
+      'cat readme.txt',
+      'cd /proxy_penny',
+      'cat world.txt',
+      'cd /utopia',
       'ls',
       'run disable_safe_mode'
     ]);
@@ -339,7 +428,7 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
 
       default:
         errorLine(`Unknown program: ${name}`);
-        tipLine('Use "cd /bin" and then "ls" to see available programs.');
+        tipLine('Use "cd /utopia" and then "ls" to see available programs.');
         break;
     }
   }
@@ -383,9 +472,9 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     text.split('\n').forEach((line) => println(line, true, color));
   }
 
-  function println(text = '', nl = true, color = null) {
-    const safe = escapeHtml(String(text));
-    const html = `<span style="color:${color || '#00ff9c'}">${safe}</span>${nl ? '\n' : ''}`;
+  function println(text = '', nl = true, color = null, allowHtml = false) {
+    const content = allowHtml ? String(text) : escapeHtml(String(text));
+    const html = `<span style="color:${color || '#00ff9c'}">${content}</span>${nl ? '\n' : ''}`;
     out.insertAdjacentHTML('beforeend', html);
     out.scrollTop = out.scrollHeight;
   }
