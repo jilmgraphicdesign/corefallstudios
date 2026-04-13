@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — Corefall</title>
+  <link rel="stylesheet" href="styles/theme.css" />
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/terminal.js"></script>
+
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function(){
+      var role = localStorage.getItem('corefall_role');
+      var locked = document.getElementById('locked');
+      var gate = document.getElementById('gate');
+      var term = document.getElementById('terminalWrap');
+      if (role !== 'admin') {
+        if (gate) gate.classList.add('hidden');
+        if (term) term.classList.add('hidden');
+        if (locked) locked.classList.remove('hidden');
+      }
+    });
+  </script>
+
+</head>
+<body class="noise theme-lime">
+  <div id="bleed" class="bleed hidden"></div>
+  <header class="site-header header-inline header-compact">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <a class="brand-logo" data-bleed href="intranet.html">
+  <img src="media/corefall_studios_logo.png" alt="Corefall Studios">
+</a>
+      <span class="brand-tag">· Employee Intranet</span>
+    </div>
+
+  <nav class="main-nav">
+    <a data-bleed href="intranet.html">Dashboard</a>
+    <a data-bleed href="admin.html">Admin</a>
+    <a data-bleed href="help-terminal.html">Terminal Help</a>
+    <a data-bleed href="index.html">Public Site</a>
+  </nav>
+</header>
+
+  <main class="content">
+    <div id="locked" class="card hidden"><h2>Admin Panel Locked</h2><p class="muted">CSO permission required.</p><div class="locked-stamp">CSO PERMISSION REQUIRED</div></div>
+    <div id="gate" class="card">
+      <h3>Enter 3-word passphrase</h3>
+      <input id="passphrase" placeholder="e.g., one two three" />
+      <button class="button" onclick="window.unlockAdmin()">Unlock</button>
+      <p class="tiny muted">Hint: Decode Base64 strings from Intel pages.</p>
+      <p id="gateMsg" class="error"></p>
+    </div>
+    <div id="terminalWrap" class="terminal hidden">
+      <div id="terminalOutput" aria-live="polite"></div>
+      <form id="terminalForm" onsubmit="return false;">
+        <input id="terminalInput" autocomplete="off" placeholder="type 'help'"/>
+      </form>
+    </div>
+  </main>
+<footer class="site-footer muted footer-kick">
+  <span>© Corefall Studios — an ARG made by Safe Mode: Disabled, now available on</span>
+
+  <a class="ks-link"
+     href="https://www.kickstarter.com/projects/bossjellybean/safe-mode-disabled"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Safe Mode: Disabled ARG on Kickstarter (opens in new tab)">
+    <span class="ks-swap" aria-hidden="true">
+      <img class="ks-badge ks-badge--green"
+           src="media/kickstarter-logo-green.png"
+           width="112" height="28" alt="">
+      <img class="ks-badge ks-badge--white"
+           src="media/kickstarter-logo-white.png"
+           width="112" height="28" alt="">
+    </span>
+  </a>
+</footer>
+</body>
+</html>

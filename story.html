@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Corefall — Story</title>
+  <link rel="stylesheet" href="styles/theme.css" />
+  <script defer src="scripts/core.js"></script>
+</head>
+
+<body class="noise">
+  <div id="bleed" class="bleed hidden"></div>
+
+  <!-- Header -->
+  <header class="site-header header-inline">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <a class="brand-logo" data-bleed href="index.html">
+  <img src="media/corefall_studios_logo.png" alt="Corefall Studios">
+</a>
+      <span class="brand-tag">· Build Above. Battle Below.</span>
+    </div>
+    <nav class="main-nav">
+      <a data-bleed href="news.html">News</a>
+      <a data-bleed href="story.html">Story</a>
+      <a data-bleed href="team.html">Team</a>
+      <a data-bleed href="apply.html" class="cta">Careers</a>
+      <a data-bleed href="login.html">Employee Login</a>
+    </nav>
+  </header>
+
+  <!-- HERO with video and avatar carousel -->
+  <main class="hero-video">
+    <div class="bg-video" aria-hidden="true">
+      <video class="bg-video__media" autoplay muted loop playsinline poster="media/limelight-copy.png">
+        <source src="media/corefall_background_lite.mp4" type="video/mp4">
+      </video>
+      <div class="bg-video__overlay"></div>
+    </div>
+
+    <div class="hero-video__content">
+      <section class="card glass">
+        <h2>The World of Corefall</h2>
+        <p>On the surface, neon hubs hum with life where you trade, form guilds, and duel. A cyber-fantasy skyline of glowing wireframes rises into vaporwave spires, slick alleys, and arenas that never sleep.</p>
+        <p>Beneath the surface, a corrupted labyrinth invites raids, speedruns, and shifting anomalies. The Worm twists geometry into jagged neon and warped voids, layering in glitch stingers and unsettling audio for high-risk, high-reward runs.</p>
+        <p>The Core is calling. Stand with the <strong>Aegisflame</strong>, strike with the <strong>Underwatch</strong>, or bend the grid with the <strong>Ciphers</strong> and push the world toward order, force, or chaos.</p>
+      </section>
+    </div>
+
+    <!-- Avatar carousel -->
+    <div class="avatar-overlays" aria-hidden="true">
+      <div class="avatar-carousel" role="region" aria-label="Hero images">
+        <img class="avatar avatar--center avatar-slide is-active" src="media/limelight-copy.png" alt="">
+        <img class="avatar avatar--center avatar-slide"            src="media/arena_winners_pics.png" alt="">
+        <img class="avatar avatar--center avatar-slide"            src="media/speed_record_nyx.png" alt="">
+
+        <!-- Only right arrow kept -->
+        <button class="avatar-nav next" aria-label="Next image">›</button>
+        <!-- Left arrow removed -->
+      </div>
+    </div>
+    <a href="#more" class="scroll-cue" aria-label="Scroll to more">
+  <span class="scroll-cue__mouse"><span class="scroll-cue__wheel"></span></span>
+  <span class="scroll-cue__chev">⌄</span>
+</a>
+  </main>
+
+    <section class="card">
+      <h3>Two Layers, One Living World</h3>
+      <ul>
+        <li><strong>Surface Hubs:</strong> Social cities for crafting, markets, and faction outreach. Join guilds, trade cosmetic sets, queue for arenas.</li>
+        <li><strong>Under-Tunnels:</strong> Instanced dungeons and raids with scaling difficulty, timed challenges, and rare drops influenced by world events.</li>
+        <li><strong>Dynamic Influence:</strong> Faction wins, guild projects, and player choices nudge the world—unlocking events, vendors, and routes.</li>
+      </ul>
+    </section>
+
+    <!-- Factions grid with logo slots -->
+    <section class="factions-grid">
+      <article class="card faction">
+        <div class="faction__logo"><img src="media/placeholder-logo.png" alt="Aegisflame logo placeholder" loading="lazy"></div>
+        <h3>Order of the Aegisflame</h3>
+        <p class="muted tiny">Guardians of the Core</p>
+        <ul>
+          <li>Defensive ops, purification rituals, barrier construction.</li>
+          <li>Ideal classes: Healers, Engineers.</li>
+          <li>Rewards: Sacred artifacts, construction materials.</li>
+        </ul>
+      </article>
+
+      <article class="card faction">
+        <div class="faction__logo"><img src="media/placeholder-logo.png" alt="Underwatch logo placeholder" loading="lazy"></div>
+        <h3>The Underwatch Legion</h3>
+        <p class="muted tiny">Overwhelming force</p>
+        <ul>
+          <li>Assault ops, covert raids, brutal PvP.</li>
+          <li>Ideal classes: Berserkers, Sentinels.</li>
+          <li>Rewards: Tactical gear, offensive skill unlocks.</li>
+        </ul>
+      </article>
+
+      <article class="card faction">
+        <div class="faction__logo"><img src="media/placeholder-logo.png" alt="Ciphers logo placeholder" loading="lazy"></div>
+        <h3>The Ciphers</h3>
+        <p class="muted tiny">Embrace the Worm</p>
+        <ul>
+          <li>Infiltration, corruption spreads, data manipulation.</li>
+          <li>Ideal classes: Assassins, Psychics.</li>
+          <li>Rewards: Hacked abilities, forbidden lore.</li>
+        </ul>
+      </article>
+    </section>
+  </div>
+<footer class="site-footer muted footer-kick">
+  <span>© Corefall Studios — an ARG made by Safe Mode: Disabled, now available on</span>
+
+  <a class="ks-link"
+     href="https://www.kickstarter.com/projects/bossjellybean/safe-mode-disabled"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Safe Mode: Disabled ARG on Kickstarter (opens in new tab)">
+    <span class="ks-swap" aria-hidden="true">
+      <img class="ks-badge ks-badge--green"
+           src="media/kickstarter-logo-green.png"
+           width="112" height="28" alt="">
+      <img class="ks-badge ks-badge--white"
+           src="media/kickstarter-logo-white.png"
+           width="112" height="28" alt="">
+    </span>
+  </a>
+</footer>
+</body>
+</html>

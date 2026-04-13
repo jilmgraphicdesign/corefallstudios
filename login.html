@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Employee Login — Corefall</title>
+  <link rel="stylesheet" href="styles/theme.css" />
+  <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/login.js"></script>
+</head>
+<body class="noise">
+  <div id="bleed" class="bleed hidden"></div>
+  <header class="site-header header-inline">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+   <a class="brand-logo" data-bleed href="index.html">
+  <img src="media/corefall_studios_logo.png" alt="Corefall Studios">
+</a>
+      <span class="brand-tag">· Build Above. Battle Below.</span>
+    </div>
+
+  <nav class="main-nav">
+    <a data-bleed href="news.html">News</a>
+     <a data-bleed href="story.html">Story</a>
+  <a data-bleed href="team.html">Team</a>
+    <a data-bleed href="apply.html" class="cta">Careers</a>
+    <a data-bleed href="login.html">Employee Login</a>
+  </nav>
+</header>
+
+  <main class="content">
+    <form class="card" id="loginForm">
+      <label>Username<input id="u" required autocomplete="off" /></label>
+      <label>Password<input id="p" type="password" required /></label>
+      <button class="button">Sign In</button>
+    </form>
+    <p id="msg" class="error"></p>
+  </main>
+<footer class="site-footer muted footer-kick">
+ <span>© Corefall Studios — an ARG made by Safe Mode: Disabled, now available on</span>
+
+  <a class="ks-link"
+     href="https://www.kickstarter.com/projects/bossjellybean/safe-mode-disabled"
+     target="_blank" rel="noopener noreferrer"
+     aria-label="Safe Mode: Disabled ARG on Kickstarter (opens in new tab)">
+    <span class="ks-swap" aria-hidden="true">
+      <img class="ks-badge ks-badge--green"
+           src="media/kickstarter-logo-green.png"
+           width="112" height="28" alt="">
+      <img class="ks-badge ks-badge--white"
+           src="media/kickstarter-logo-white.png"
+           width="112" height="28" alt="">
+    </span>
+  </a>
+</footer>
+</body>
+</html>

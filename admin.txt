@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /proxypenny/
+# handler: a.kolbeck
