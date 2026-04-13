@@ -44,7 +44,7 @@ ${worldText}
   const state = {
     cwd: '/',
     fs: {
-      '/': ['utopia', 'logs', 'secrets', 'proxy_penny', 'readme.txt'],
+      '/': ['XXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
