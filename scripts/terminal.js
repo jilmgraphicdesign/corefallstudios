@@ -30,7 +30,7 @@ This world is not what it seems.
 
 Find the Utopia file.
 
-                                       <pre>,~OOO+:O=+:+oo,:~~.; ;~:-~~+++~=-;=+=-,~:--,=+*ooaaaaaa. O%@@@@@@@@@%                                      
+                                       ,~OOO+:O=+:+oo,:~~.; ;~:-~~+++~=-;=+=-,~:--,=+*ooaaaaaa. O%@@@@@@@@@%                                      
                                         ;+=@A* ;+o;;.;~~~~..:-::~:-~;:  ,;;. ~~---- :-+*ooo*+ , *O%%@@@@@@@%                                      
                                         ;oo: +-+-,=;~~;;;;..    O@oa#8888A%%o .;~:::~~:-++== + ,*O%%%AO@@@@%                                      
                                         . ,=oo-,, ..;;;,  ~~%#&8@@@@@@@@@@@@@@@@8a;;~  :-- ,-~ +oaoaO%AO@@@%                                      
@@ -81,7 +81,7 @@ Find the Utopia file.
                                        a=    ~o@O-~,o%O+o~*&A#O=o:; =O%=. :a+##8@@8a&@@@A#@@@@@@@@@@@@@@@8&@                                      
                                        O+   ;+#@#AO%#AO,-*O#8#Oa*-= +%#+ ,-Ao@@@@8@8@@@@@@@@@@@@@@@@@@@@@@8@                                      
                                        A*  ,:o@@Aao%@@#%o#8a&8&AAaa+AA%aaa%@@@@@@@@&@@@@@@@@@@@@@@@@@@@@@@@@                                      
-                                       &O.;-a8@@@#%@@&A=A%#88@&@#AA@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@</pre>`;
+                                       &O.;-a8@@@#%@@&A=A%#88@&@#AA@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@`;
 
   const readmeHtml = `
 <a href="${worldPortalUrl}" target="_blank" rel="noopener noreferrer" style="color:#4FC1FF; text-decoration:underline;">
