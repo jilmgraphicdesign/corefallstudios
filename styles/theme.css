@@ -769,6 +769,13 @@ html{ scroll-behavior: smooth; }
 .theme-lime .ks-link:hover .ks-swap{
   filter: drop-shadow(0 0 10px rgba(200,255,90,.28));
 }
+.ascii {
+  white-space: pre;
+  font-family: monospace;
+  line-height: 1.1;
+  color: #00ff00;
+  margin: 0;
+}
 
 
 /* password hidden here deliberately */
