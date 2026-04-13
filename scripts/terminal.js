@@ -25,7 +25,7 @@ function startTerminal(){
       '/secrets': ['cipher.key','worm.map']
     },
     files: {
-      '/readme.txt': 'Corefall Admin Console\nType "help" to begin.',
+      '/readme.txt': '<a data-bleed href="proxy_pennyreadme.txt">read me</a>',
       '/logs/alerts.log': '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode',
       '/logs/attacks.feed': 'hashes: 9f4a.. 7a2e.. origin: Steel City nodes?',
       '/secrets/cipher.key': 'ctx: Aegisflame | Underwatch | Ciphers',
