@@ -335,7 +335,7 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     listItems([
       'cat readme.txt',
       'ls',
-      'oog logs'
+      'oog data logs'
     ]);
   }
 
