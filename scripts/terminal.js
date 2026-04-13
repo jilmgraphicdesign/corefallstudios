@@ -53,13 +53,13 @@ ${worldText}
     files: {
       '/readme.txt': readmeHtml,
       '/logs/alerts.log':
-        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode',
+        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode via the utopia folder',
       '/logs/attacks.feed':
-        'hashes: 9f4a.. 7a2e.. origin: Steel City nodes?',
+        'Message broadcast from inside the new Corefall update: hola? c’est me ペニー ik kan’t trovare il dossier sie versuchen ocultar los comandos find Utopía carpeta',
       '/secrets/cipher.key':
-        'ctx: Aegisflame | Underwatch | Ciphers',
+        'ctx: Aegisflame | Underwatch | Ciphers | Unknown New Faction',
       '/secrets/worm.map':
-        'signal spikes in sub-surface tunnels within the game are not coded, where did they come from?',
+        'signal spikes in sub-surface tunnels within the game are not coded, where did they come from? Launch new update as soon as possible.',
       '/proxy_penny/world.txt': worldText
     }
   };
