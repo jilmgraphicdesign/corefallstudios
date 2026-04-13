@@ -53,7 +53,7 @@ ${worldText}
     files: {
       '/readme.txt': readmeHtml,
       '/logs/alerts.log':
-        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode via the utopia folder',
+        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode\n [warn] via the utopia folder',
       '/logs/attacks.feed':
         'Message broadcast from inside the new Corefall update: hola? c’est me ペニー ik kan’t trovare il dossier sie versuchen ocultar los comandos find Utopía carpeta',
       '/secrets/cipher.key':
