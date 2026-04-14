@@ -79,13 +79,17 @@ ${worldText}
       true,
       '#9CDCFE'
     );
+    blank();
+    println('You have ⚠️ 1 message unread on terminal from unknown sender:', true, '#FFD866');
+    listItems([
+      'command to read → cat readme.txt',
+    ]);
 
     blank();
-    println('Good starting commands:', true, '#2DFABC');
+    println('Good starting commands:', true, '#9CDCFE');
     listItems([
       'ls    → view items in the current location',
       'cd /logs → go to the corefall data folder',
-      'cat readme.txt  → you have ⚠️ 1 message unread on terminal from unknown sender',
       'hint  → get a suggested next step'
     ]);
 
