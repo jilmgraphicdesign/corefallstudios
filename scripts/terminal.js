@@ -44,7 +44,7 @@ ${worldText}
   const state = {
     cwd: '/',
     fs: {
-      '/': ['XXXXXX', 'logs', 'secrets', 'pVb&^5_pP0#^}', 'readme.txt'],
+      '/': ['XXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
@@ -155,7 +155,7 @@ ${worldText}
       case 'run':
         if (!args[0]) {
           errorLine('You need to specify a program name.');
-          tipLine('Try: cd /⚠️ XXXXXX');
+          tipLine('Try: cd /⚠️ XXXXX');
           tipLine('Then: ls');
           tipLine('Then: run disable_safe_mode');
         } else {
