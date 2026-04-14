@@ -33,9 +33,20 @@ input,textarea{background:#0a0e19;color:var(--text);border:1px solid #25355a;bor
 .hidden{display:none}
 
 /* Terminal */
-.terminal{background:#04070f;border:1px solid #1c2750;border-radius:var(--round);padding:0;overflow:hidden}
-#terminalOutput{font-family:var(--mono);padding:16px;min-height:240px;letter-spacing:.2px;text-shadow:0 0 6px rgba(122,209,255,.25)}
-#terminalInput{font-family:var(--mono);padding:14px 16px;width:100%;background:#020510;border-top:1px solid #1c2750;border-radius:0 0 var(--round) var(--round)}
+.terminal{background:#0c0c0c;border:1px solid #1c2750;border-radius:var(--round);padding:0;overflow:hidden}
+#terminalOutput{font-family:var(--mono);font-size:14px;line-height:1.5;padding:14px 16px;min-height:480px;max-height:75vh;overflow-y:auto;white-space:pre-wrap;word-break:break-word;color:#c8c8c8;letter-spacing:.3px;text-shadow:0 0 1px rgba(200,255,90,.08);background:transparent;cursor:text}
+#terminalOutput::-webkit-scrollbar{width:6px}
+#terminalOutput::-webkit-scrollbar-track{background:#111}
+#terminalOutput::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+
+/* inline input line */
+.term-input-line{display:flex;align-items:center;line-height:1.5}
+.term-prompt{color:#569CD6;white-space:pre;flex-shrink:0}
+.term-bar{display:flex;align-items:center;padding:8px 16px;border-top:1px solid #1c2750;background:#020510}
+#terminalOutput .term-field,
+.term-bar .term-field{font-family:var(--mono);font-size:14px;color:#e0e0e0;background:transparent;border:none;border-radius:0;outline:none;box-shadow:none;padding:0;margin:0;flex:1;caret-color:#c8ff5a;letter-spacing:.3px;width:auto}
+#terminalOutput .term-field:focus,
+.term-bar .term-field:focus{border:none;outline:none;box-shadow:none}
 
 /* Glitch tint & bleed transition */
 .noise::before{content:"";position:fixed;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,.02) 0 2px,transparent 2px 4px);mix-blend-mode:overlay;pointer-events:none;z-index:1}
@@ -426,17 +437,31 @@ input,textarea{background:#0a0e19;color:var(--text);border:1px solid #25355a;bor
   box-shadow: 0 0 0 3px rgba(200,255,90,.14);
 }
 
-/* Terminal shell */
-.theme-lime .terminal,
-.theme-lime #terminalOutput,
-.theme-lime #terminalInput{
+/* Terminal shell — lime theme */
+.theme-lime .terminal{
   border-color: rgba(200,255,90,.35);
 }
-.theme-lime #terminalInput{
-  border-top-color: rgba(200,255,90,.35);
-}
 .theme-lime #terminalOutput{
-  text-shadow: 0 0 6px rgba(200,255,90,.25); 
+  text-shadow: 0 0 1px rgba(200,255,90,.08);
+}
+.theme-lime .term-prompt{
+  color: rgba(200,255,90,.7);
+}
+.theme-lime #terminalOutput .term-field,
+.theme-lime .term-bar .term-field,
+.theme-lime #terminalOutput .term-field:focus,
+.theme-lime .term-bar .term-field:focus{
+  color: #e0e0e0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+  caret-color: #c8ff5a;
+}
+.theme-lime .term-bar{
+  border-top-color: rgba(200,255,90,.25);
 }
 
 .theme-lime .main-nav a:hover{

@@ -1,7 +1,7 @@
 window.unlockAdmin = function () {
-  const input = document.getElementById('passphrase');
-  const ok = /\bWAKE\s+THE\s+CORE\b/i.test(input.value);
-  const gateMsg = document.getElementById('gateMsg');
+  var input = document.getElementById('passphrase');
+  var ok = /\bWAKE\s+THE\s+CORE\b/i.test(input.value);
+  var gateMsg = document.getElementById('gateMsg');
 
   if (ok) {
     document.getElementById('gate').classList.add('hidden');
@@ -13,697 +13,364 @@ window.unlockAdmin = function () {
       'Incorrect passphrase. Decode the three Intel strings (Base64) and enter the 3-word phrase.';
   }
 };
-let corruptionLevel = 0;
-function startTerminal() {
-  const out = document.getElementById('terminalOutput');
-  const input = document.getElementById('terminalInput');
-  const form = document.getElementById('terminalForm');
 
-  const worldPortalUrl =
+var corruptionLevel = 0;
+
+function startTerminal() {
+  var out = document.getElementById('terminalOutput');
+  var termWrap = document.getElementById('terminalWrap');
+  var inputField = document.getElementById('terminalInput');
+  var promptEl = document.getElementById('termPrompt');
+
+  var worldPortalUrl =
     'https://jilmgraphicdesign.github.io/corefallstudios/proxy_penny/world.html';
 
-const worldText = [
-"If you crawled here, you're on the right track.",
-"",
-"Please find me.",
-"",
-"This world is not what it seems.",
-"",
-"where am I?",
-"",
-].join('\n');
+  var worldText = [
+    'If you crawled here, you\'re on the right track.', '',
+    'Please find me.', '',
+    'This world is not what it seems.', '',
+    'where am I?', ''
+  ].join('\n');
 
-  const readmeHtml = `
-<a href="${worldPortalUrl}" target="_blank" rel="noopener noreferrer" style="color:#4FC1FF; text-decoration:underline;">
-🌐 Open World Portal
-</a>
+  var readmeHtml = '<a href="' + worldPortalUrl + '" target="_blank" rel="noopener noreferrer" style="color:#4FC1FF; text-decoration:underline;">\uD83C\uDF10 Open World Portal</a>\n\n' + worldText;
 
-${worldText}
-`;
-
-  const state = {
+  var state = {
     cwd: '/',
     fs: {
       '/': ['XXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
+      '/XXXX': [],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
+      '/pVb&^5_pP0*^}': [],
       '/proxy_penny': ['virus']
     },
     files: {
       '/readme.txt': readmeHtml,
       '/logs/alerts.log':
-        '[warn] ⚠️ breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode\n [warn] ⚠️ via the XXXXXX folder',
+        '[warn] \u26A0\uFE0F breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode\n[warn] \u26A0\uFE0F via the XXXXXX folder',
       '/logs/attacks.feed':
-        'Message broadcast from inside the new Corefall update: hola? c’est me ペニー ik kan’t trovare il dossier sie versuchen ocultar los comandos find Utopía carpeta',
+        'Message broadcast from inside the new Corefall update: hola? c\u2019est me \u30da\u30cb\u30fc ik kan\'t trovare il dossier sie versuchen ocultar los comandos find Utop\u00eda carpeta',
       '/secrets/cipher.key':
-        'ctx: Aegisflame | Underwatch | Ciphers | ⚠️ Unknown New Faction',
+        'ctx: Aegisflame | Underwatch | Ciphers | \u26A0\uFE0F Unknown New Faction',
       '/secrets/worm.map':
         'signal spikes in sub-surface tunnels within the game are not coded, where did they come from? Launch new update as soon as possible.',
-      '/proxy_penny/virus': 'WARNING ⚠️  New Virus Detected ---- proxy_penny altering Corefall [WARNING] ⚠️ COREFALL INFECTED UTOPIA INFECTED'
+      '/proxy_penny/virus':
+        'WARNING \u26A0\uFE0F New Virus Detected ---- proxy_penny altering Corefall [WARNING] \u26A0\uFE0F COREFALL INFECTED UTOPIA INFECTED'
     }
   };
 
-  let initialized = false;
+  var cmdHistory = [];
+  var histIdx = -1;
 
-  initTerminal();
-
-  function initTerminal() {
-    if (initialized) return;
-    initialized = true;
-
-    section('Corefall Admin Console');
-    println('Welcome Back Arne Kolbeck.');
-    println(
-      'If you need any assistance using the terminal please refer to the Terminal Help page in your Admin Portal.',
-      true,
-      '#9CDCFE'
-    );
-    blank();
-    println('You have ⚠️ 1 message unread on terminal from unknown sender:', true, '#FFD866');
-    println([
-      'command to read → cat readme.txt',
-    ]);
-
-    blank();
-    println('Good starting commands:', true, '#9CDCFE');
-    listItems([
-      'ls    → view items in the current location',
-      'cd /logs → go to the corefall data folder',
-      'hint  → get a suggested next step'
-    ]);
-
-    blank();
-    println('Type a command below and press Enter.', true, '#FFD866');
-    prompt();
-
-    form.addEventListener('submit', onSubmit);
+  /* ── prompt string ── */
+  function ps1() {
+    var dir = state.cwd === '/' ? '~' : '~' + state.cwd;
+    return 'arne@corefall:' + dir + '$ ';
   }
 
-  function onSubmit(e) {
-    e.preventDefault();
+  function updatePrompt() {
+    promptEl.textContent = ps1();
+  }
 
-    const cmdline = input.value.trim();
-    input.value = '';
+  /* ── output helpers ── */
+  function write(text, color, allowHtml) {
+    var span = document.createElement('span');
+    if (color) span.style.color = color;
+    if (allowHtml) span.innerHTML = text;
+    else span.textContent = text;
+    out.appendChild(span);
+    out.scrollTop = out.scrollHeight;
+  }
 
-    if (!cmdline) {
-      prompt();
-      return;
+  function writeln(text, color, allowHtml) {
+    write((text || '') + '\n', color, allowHtml);
+  }
+
+  function blank() { writeln(''); }
+
+  function echoCmd(cmd) {
+    write(ps1(), '#7eb86a');
+    writeln(cmd, '#e0e0e0');
+  }
+
+  function errorLine(text) { writeln(text, '#F44747'); }
+  function warnLine(text) { writeln(text, '#FFB347'); }
+  function tipLine(text) { writeln('  ' + text, '#808080'); }
+
+  function printMultiline(text, color) {
+    text.split('\n').forEach(function (line) { writeln(line, color); });
+  }
+
+  /* ── input handling ── */
+  inputField.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      var cmd = inputField.value;
+      inputField.value = '';
+
+      echoCmd(cmd);
+
+      if (cmd.trim()) {
+        cmdHistory.push(cmd.trim());
+        histIdx = cmdHistory.length;
+        processCommand(cmd.trim());
+      }
+
+      updatePrompt();
     }
 
-    userLine(cmdline);
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (histIdx > 0) { histIdx--; inputField.value = cmdHistory[histIdx]; }
+    }
 
-    const [cmd, ...args] = cmdline.split(/\s+/);
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (histIdx < cmdHistory.length - 1) { histIdx++; inputField.value = cmdHistory[histIdx]; }
+      else { histIdx = cmdHistory.length; inputField.value = ''; }
+    }
+  });
 
-    switch ((cmd || '').toLowerCase()) {
-      case 'help':
-        showHelp();
-        break;
+  /* click anywhere in terminal → focus (but not during text selection) */
+  termWrap.addEventListener('click', function () {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed) {
+      inputField.focus();
+    }
+  });
 
-      case 'ls':
-        showLs();
-        break;
+  /* ── boot sequence ── */
+  writeln('Corefall Systems v4.2.1-rel (tty0)', '#569CD6');
+  writeln('Login: arne.kolbeck \u2014 authenticated via CSO token', '#808080');
+  blank();
+  writeln('\u26A0\uFE0F You have 1 unread message from unknown sender.', '#FFD866');
+  writeln('  read with: cat readme.txt', '#808080');
+  blank();
+  writeln('Type "help" for available commands.', '#808080');
+  blank();
 
-      case 'cd':
-        changeDirectory(args);
-        break;
+  updatePrompt();
+  inputField.focus();
 
-      case 'cat':
-        readFile(args);
-        break;
+  /* ── command router ── */
+  function processCommand(cl) {
+    var parts = cl.split(/\s+/);
+    var cmd = (parts[0] || '').toLowerCase();
+    var args = parts.slice(1);
 
-      case 'oog':
-        handleOog(args);
-        break;
-
-      case 'folders':
-        if (args[0]) {
-          handleRun(args[0].replace(/\*$/, ''));
-        } else {
-          showFolders();
-        }
-        break;
-
-      case 'files':
-        if (args[0]) {
-          handleRun(args[0].replace(/\*$/, ''));
-        } else {
-          showFiles();
-        }
-        break;
-
+    switch (cmd) {
+      case 'help':    showHelp(); break;
+      case 'ls':      showLs(); break;
+      case 'cd':      changeDir(args); break;
+      case 'cat':     readFile(args); break;
+      case 'oog':     handleOog(args); break;
+      case 'folders': args[0] ? handleRun(args[0].replace(/\*$/, '')) : showFolders(); break;
+      case 'files':   args[0] ? handleRun(args[0].replace(/\*$/, '')) : showFiles(); break;
       case 'run':
-        if (!args[0]) {
-          errorLine('You need to specify a program name.');
-          tipLine('Try: cd /⚠️ XXXXX');
-          tipLine('Then: ls');
-          tipLine('Then: run disable_safe_mode');
-        } else {
-          handleRun(args[0].replace(/\*$/, ''));
-        }
+        if (!args[0]) { errorLine('run: missing operand'); tipLine('usage: run <program>'); }
+        else handleRun(args[0].replace(/\*$/, ''));
         break;
-
       case 'clear':
         out.textContent = '';
-        section('Screen Cleared');
-        println('Terminal ready.', true, '#9CDCFE');
         break;
-
-      case 'hint':
-        showHint();
-        break;
-
+      case 'hint':    showHint(); break;
+      case 'pwd':     writeln(state.cwd); break;
+      case 'whoami':  writeln('arne.kolbeck'); break;
       default:
-        errorLine('Command not found.');
+        errorLine(cmd + ': command not found');
         tipLine('Type "help" to see available commands.');
-        break;
     }
-
-    prompt();
   }
 
+  /* ── commands ── */
   function showHelp() {
-    section('Available Commands');
-
-    println('Navigation', true, '#4EC9B0');
-    listItems([
-      'ls → list items in the current folder',
-      'cd <folder> → move into a folder',
-      'cd / → return to the main folder'
-    ]);
-
-    blank();
-    println('Viewing Files', true, '#4EC9B0');
-    listItems([
-      'cat <file> → open a file',
-      'files → show all known files',
-      'folders → show all folders'
-    ]);
-
-    blank();
-    println('Actions', true, '#4EC9B0');
-    listItems([
-      'run <program> → execute a program',
-      'clear → clear the screen',
-      'hint → get a suggested next step'
-    ]);
-
-    blank();
-    println('Special', true, '#4EC9B0');
-    listItems([
-      'oog data logs → view anomaly logs'
-    ]);
+    var lines = [
+      'ls                   list directory contents',
+      'cd <dir>             change directory',
+      'cd /                 return to root',
+      'cat <file>           display file contents',
+      'run <program>        execute a program',
+      'pwd                  print working directory',
+      'whoami               display current user',
+      'files                list all known files',
+      'folders              list all known directories',
+      'oog data logs        display anomaly telemetry',
+      'hint                 suggested next step',
+      'clear                clear screen'
+    ];
+    lines.forEach(function (l) { writeln(l); });
   }
 
   function showLs() {
-    const items = state.fs[state.cwd] || [];
-
-    section(`Contents of ${state.cwd}`);
-
-    if (!items.length) {
-      println('This folder is empty.', true, '#9CDCFE');
-      return;
-    }
-
-    items.forEach((item) => {
-      if (item.endsWith('*')) {
-        println(`⚙ Program: ${item.replace(/\*$/, '')}`, true, '#4FC1FF');
-      } else if (isDir(pathJoin(state.cwd, item))) {
-        println(`📁 Folder: ${item}`, true, '#C586C0');
-      } else {
-        println(`📄 File: ${item}`, true, '#DCDCAA');
-      }
+    var items = state.fs[state.cwd] || [];
+    if (!items.length) { writeln('(empty)', '#808080'); return; }
+    items.forEach(function (item) {
+      if (item.endsWith('*'))      writeln('\u2699 ' + item, '#4EC9B0');
+      else if (isDir(pathJoin(state.cwd, item))) writeln('\uD83D\uDCC1 ' + item + '/', '#569CD6');
+      else                          writeln('\uD83D\uDCC4 ' + item);
     });
   }
 
-  function changeDirectory(args) {
-    const rawDest = args[0];
-
-    if (!rawDest) {
-      state.cwd = '/';
-      println('Moved to the main folder: /', true, '#9CDCFE');
-      return;
-    }
-
-    const dest = normalizePath(pathJoin(state.cwd, rawDest));
-
-    if (isDir(dest)) {
-      state.cwd = dest;
-      println(`Now in: ${state.cwd}`, true, '#9CDCFE');
-    } else {
-      errorLine('That folder does not exist.');
-      tipLine('Use "ls" to see available folders.');
-    }
+  function changeDir(args) {
+    var d = args[0];
+    if (!d || d === '/' || d === '~') { state.cwd = '/'; return; }
+    var dest = norm(pathJoin(state.cwd, d));
+    if (isDir(dest)) state.cwd = dest;
+    else errorLine('cd: ' + d + ': No such directory');
   }
 
   function readFile(args) {
-    const rawFile = args[0];
-
-    if (!rawFile) {
-      errorLine('You need to specify a file name.');
-      tipLine('Example: cat readme.txt');
-      return;
-    }
-
-    const file = normalizePath(pathJoin(state.cwd, rawFile));
-
-    if (state.files[file]) {
-      section(`File: ${file}`);
-
-      if (file === '/readme.txt') {
-        println(state.files[file], true, '#DCDCAA', true);
-      } else {
-        printMultiline(state.files[file], '#DCDCAA');
-      }
-    } else {
-      errorLine('That file does not exist.');
-      tipLine('Use "ls" to see files in this folder.');
-    }
+    var f = args[0];
+    if (!f) { errorLine('cat: missing operand'); return; }
+    var fp = norm(pathJoin(state.cwd, f));
+    if (state.files[fp] !== undefined) {
+      if (fp === '/readme.txt') write(state.files[fp] + '\n', '#DCDCAA', true);
+      else printMultiline(state.files[fp], '#DCDCAA');
+    } else errorLine('cat: ' + f + ': No such file');
   }
 
   function handleOog(args) {
-    const sub = (args.join(' ') || '').toLowerCase();
-
-    if (sub === 'data logs') {
-      section('OOG Data Logs');
-
+    if ((args.join(' ') || '').toLowerCase() === 'data logs') {
       printMultiline(
-`P[OOG-MON] 2025-08-19T02:03:11Z env=prod actor=CIPHERS trigger=driver.tap
-E  effect="Dungeon timer freeze" zone="Breachport" duration=90s anomaly=worm-pulse
-
-N[OOG-MON] 2025-08-20T00:22:48Z env=prod actor=CIPHERS trigger=api.spoof
-N  effect="PvP bracket rollback" brackets=3 rollback=45s
-
-Y[OOG-MON] 2025-08-20T03:59:04Z env=prod actor=CIPHERS trigger=packet.chaff
-K  effect="Aegis ward drain spike" wards=12 drain=+18% zone="Bastion"
-
-N[OOG-MON] 2025-08-20T05:10:21Z env=prod actor=CIPHERS trigger=leaderboard.ghost
-O  effect="Leaderboard thrash" swaps=214 suspect_ids=8
-
-W[MITIGATION] 2025-08-21T12:34:02Z rulepush=v0.9.21 actions=rate-limit,event-invalidation status=applied
-S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="hash:7a2e..9f4a"`,
+        'P[OOG-MON] 2025-08-19T02:03:11Z env=prod actor=CIPHERS trigger=driver.tap\n' +
+        'E  effect="Dungeon timer freeze" zone="Breachport" duration=90s anomaly=worm-pulse\n' +
+        '\n' +
+        'N[OOG-MON] 2025-08-20T00:22:48Z env=prod actor=CIPHERS trigger=api.spoof\n' +
+        'N  effect="PvP bracket rollback" brackets=3 rollback=45s\n' +
+        '\n' +
+        'Y[OOG-MON] 2025-08-20T03:59:04Z env=prod actor=CIPHERS trigger=packet.chaff\n' +
+        'K  effect="Aegis ward drain spike" wards=12 drain=+18% zone="Bastion"\n' +
+        '\n' +
+        'N[OOG-MON] 2025-08-20T05:10:21Z env=prod actor=CIPHERS trigger=leaderboard.ghost\n' +
+        'O  effect="Leaderboard thrash" swaps=214 suspect_ids=8\n' +
+        '\n' +
+        'W[MITIGATION] 2025-08-21T12:34:02Z rulepush=v0.9.21 actions=rate-limit,event-invalidation status=applied\n' +
+        'S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="hash:7a2e..9f4a"',
         '#CE9178'
       );
-    } else {
-      errorLine('Invalid OOG command.');
-      tipLine('Use: oog data logs');
-    }
+    } else { errorLine('oog: invalid subcommand'); tipLine('usage: oog data logs'); }
   }
 
   function showFolders() {
-    section('All Folders');
-    listItems([
-      '/',
-      '/XXXXXX',
-      '/logs',
-      '/secrets',
-      '/p%$#!_p*&^%'
-    ]);
+    ['/', '/XXXXXX', '/logs', '/secrets', '/p%$#!_p*&^%'].forEach(function (f) { writeln(f, '#569CD6'); });
   }
 
   function showFiles() {
-    section('All Files');
-    listItems([
-      '/readme.txt',
-      '/logs/alerts.log',
-      '/logs/attacks.feed',
-      '/secrets/cipher.key',
-      '/secrets/worm.map',
-      '/proxy_penny/virus'
-    ]);
+    ['/readme.txt', '/logs/alerts.log', '/logs/attacks.feed',
+     '/secrets/cipher.key', '/secrets/worm.map', '/proxy_penny/virus'
+    ].forEach(function (f) { writeln(f); });
   }
 
   function showHint() {
-    section('Suggested Next Step');
-    println('Try this path:', true, '#FFD866');
-    listItems([
-      'cat readme.txt',
-      'ls',
-      'oog data logs'
-    ]);
+    writeln('Try:', '#808080');
+    writeln('  cat readme.txt', '#FFD866');
+    writeln('  ls', '#FFD866');
+    writeln('  oog data logs', '#FFD866');
   }
 
   function handleRun(name) {
     switch (name) {
       case 'disable_safe_mode':
-        section('Running Program');
-        println('Launching: disable_safe_mode', true, '#4FC1FF');
-        println('Please wait...', true, '#9CDCFE');
-        glitch('Safe mode DISABLED. Simulation boundaries thinning…');
-        setTimeout(() => {
-          location.href = 'outcomes/disable.html';
-        }, 1200);
+        writeln('Launching: disable_safe_mode', '#4FC1FF');
+        writeln('Please wait...', '#808080');
+        glitch('Safe mode DISABLED. Simulation boundaries thinning\u2026');
+        setTimeout(function () { location.href = 'outcomes/disable.html'; }, 1200);
         break;
-
       case 'destroy_system':
-        section('Running Program');
-        println('Launching: destroy_system', true, '#4FC1FF');
-        warningLine('Self-destruct sequence initiated...');
-        println('3... 2... 1...', true, '#F44747');
+        writeln('Launching: destroy_system', '#4FC1FF');
+        warnLine('Self-destruct sequence initiated...');
+        writeln('3... 2... 1...', '#F44747');
         meltdown();
-        setTimeout(() => {
-          location.href = 'outcomes/destroy.html';
-        }, 1200);
+        setTimeout(function () { location.href = 'outcomes/destroy.html'; }, 1200);
         break;
-
       case 'exfiltrate':
-        section('Running Program');
-        println('Launching: exfiltrate', true, '#4FC1FF');
-        println('Packaging logs and secrets...', true, '#9CDCFE');
-        setTimeout(() => {
-          println('Exfiltration complete. Artifacts exported.', true, '#4EC9B0');
+        writeln('Launching: exfiltrate', '#4FC1FF');
+        writeln('Packaging logs and secrets...', '#808080');
+        setTimeout(function () {
+          writeln('Exfiltration complete. Artifacts exported.', '#4EC9B0');
           location.href = 'outcomes/exfiltrate.html';
         }, 1200);
         break;
-
       default:
-        errorLine(`Unknown program: ${name}`);
-        tipLine('Use "cd /utopia" and then "ls" to see available programs.');
-        break;
+        errorLine('run: ' + name + ': program not found');
+        tipLine('cd /utopia && ls to see available programs.');
     }
   }
 
-  function prompt() {
-    blank();
-    println(`Current location: ${state.cwd}`, true, '#569CD6');
-    println('Enter command below.', true, '#808080');
-  }
+  /* ── path utilities ── */
+  function pathJoin(a, b) { if (!b) return a; if (b[0] === '/') return b; return (a === '/' ? '/' : a + '/') + b; }
+  function norm(p) { return p.replace(/\/+/g, '/').replace(/\/$/, '') || '/'; }
+  function isDir(p) { return state.fs[p] !== undefined; }
 
-  function blank() {
-    out.insertAdjacentHTML('beforeend', '\n');
-    out.scrollTop = out.scrollHeight;
-  }
-
-  function section(title) {
-    println(`=== ${title.toUpperCase()} ===`, true, '#4FC1FF');
-  }
-
-  function userLine(text) {
-    println(`> ${text}`, true, '#FFFFFF');
-  }
-
-  function listItems(items) {
-    items.forEach((item) => println(` • ${item}`, true, '#D4D4D4'));
-  }
-
-  function tipLine(text) {
-    println(`Tip: ${text}`, true, '#FFD866');
-  }
-
-  function warningLine(text) {
-    println(`Warning: ${text}`, true, '#FFB347');
-  }
-
-  function errorLine(text) {
-    println(`Error: ${text}`, true, '#F44747');
-  }
-
-  function printMultiline(text, color = null) {
-    text.split('\n').forEach((line) => println(line, true, color));
-  }
-
-  function println(text = '', nl = true, color = null, allowHtml = false) {
-    const content = allowHtml ? String(text) : escapeHtml(String(text));
-    const html = `<span style="color:${color || '#00ff9c'}">${content}</span>${nl ? '\n' : ''}`;
-    out.insertAdjacentHTML('beforeend', html);
-    out.scrollTop = out.scrollHeight;
-  }
-
-  function escapeHtml(s) {
-    return s.replace(/[&<>]/g, (c) => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;'
-    }[c]));
-  }
-
-  function pathJoin(a, b) {
-    if (!b) return a;
-    if (b.startsWith('/')) return b;
-    if (a === '/') return '/' + b;
-    return a + '/' + b;
-  }
-
-  function normalizePath(path) {
-    return path.replace(/\/+/g, '/').replace(/\/$/, '') || '/';
-  }
-
-  function isDir(path) {
-    return state.fs[path] !== undefined;
-  }
-
+  /* ── effects ── */
   function glitch(msg) {
-    const e = document.createElement('div');
+    var e = document.createElement('div');
     e.className = 'glitch';
     e.textContent = msg;
-    document.getElementById('terminalWrap').appendChild(e);
-    setTimeout(() => e.remove(), 800);
+    termWrap.appendChild(e);
+    setTimeout(function () { e.remove(); }, 800);
     window._corefall && window._corefall.playGlitch();
   }
 
   function meltdown() {
     document.body.style.animation = 'shake .18s infinite';
-    setTimeout(() => {
-      document.body.style.animation = 'none';
-    }, 1000);
-  }
-  function infectUI(intensity = 1) {
-  const root = document.documentElement;
-  const hue = Math.floor(Math.random() * 40 - 20);
-  const contrast = 1 + Math.random() * 0.4;
-
-  root.style.filter = `
-    hue-rotate(${hue}deg)
-    contrast(${contrast})
-    brightness(${1 + Math.random() * 0.2})
-  `;
-
-  setTimeout(() => {
-    root.style.filter = '';
-  }, 120 + intensity * 80);
-}
-
-function screenTear() {
-  if (Math.random() < 0.25) {
-    document.body.classList.add('glitching');
-    setTimeout(() => {
-      document.body.classList.remove('glitching');
-    }, 150 + Math.random() * 300);
-  }
-}
-
-function whisper() {
-  const phrases = [
-    '...you are not in control',
-    'it sees the inputs',
-    'stop typing',
-    'this is not a terminal',
-    'where am I?',
-    'you opened it',
-    'we are still here',
-    'don’t go to /utopia'
-  ];
-
-  if (Math.random() < 0.18) {
-    const msg = phrases[Math.floor(Math.random() * phrases.length)];
-    setTimeout(() => {
-      println(msg, true, '#ff4fc1');
-      window._corefall && window._corefall.playGlitch();
-    }, 200 + Math.random() * 800);
-  }
-}
-
-function audioDisturbance() {
-  if (!window._corefall) return;
-
-  if (Math.random() < 0.3) {
-    window._corefall.playGlitch();
+    setTimeout(function () { document.body.style.animation = 'none'; }, 1000);
   }
 
-  if (Math.random() < 0.1 && window._corefall.playWhisper) {
-    window._corefall.playWhisper();
-  }
-}
-
-function corruptInputEcho(text) {
-  if (Math.random() < 0.2) {
-    return text
-      .replace(/[aeiou]/gi, (c) => (Math.random() < 0.5 ? c : '?'))
-      .replace(/./g, (c) => (Math.random() < 0.03 ? '█' : c));
-  }
-  return text;
-}
-function fxPulse() {
-  const root = document.documentElement;
-
-  root.style.transition = 'filter 0.08s linear';
-  root.style.filter = `brightness(${1 + Math.random() * 0.2}) contrast(${1 + Math.random() * 0.2})`;
-
-  setTimeout(() => {
-    root.style.filter = '';
-  }, 80);
-}
-function fxWhisper(println) {
-  const lines = [
-    '...hello?',
-    'where am I?',
-    'who are you?',
-    'something feels wrong',
-    'please help me!',
-    'don’t trust them',
-  ];
-
-  if (Math.random() < 0.15) {
-    const msg = lines[Math.floor(Math.random() * lines.length)];
-
-    setTimeout(() => {
-      println(msg, true, '#777');
-    }, 400 + Math.random() * 800);
-  }
-function fxAudio() {
-  if (!window._corefall) return;
-
-  if (Math.random() < 0.25) {
-    window._corefall.playGlitch();
-  }
- }
-  }
-  function fxCorruptText(text) {
-  if (Math.random() < 0.1) {
-    return text.replace(/[aeiou]/g, (c) =>
-      Math.random() < 0.3 ? c.toUpperCase() : c
-    );
-  }
-  return text;
-}
-/* =========================
-   CORE GHOST EFFECT LAYER
-========================= */
-
-(function initGhostLayer() {
-  const out = document.getElementById('terminalOutput');
-  if (!out) return;
-
-  /* ---------- VISUAL GLITCH LOOP ---------- */
-  setInterval(() => {
-    if (Math.random() < 0.25) {
-      document.documentElement.style.filter =
-        `contrast(${1 + Math.random() * 0.2}) brightness(${1 + Math.random() * 0.2})`;
-
-      setTimeout(() => {
-        document.documentElement.style.filter = '';
-      }, 120);
-    }
-
-    if (Math.random() < 0.18) {
-      document.body.style.transform =
-        `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)`;
-
-      setTimeout(() => {
-        document.body.style.transform = '';
-      }, 100);
-    }
-  }, 1400);
-
-  /* ---------- GHOST TEXT SYSTEM ---------- */
-  const ghostLines = [
-    'proxy_penny',
-    'are you still there?',
-    'they are watching',
-    'don’t trust the system',
-    'something is wrong here',
-    'please help me',
-    'safe mode: disabled',
-    'wake up',
-    'corruption detected'
-  ];
-
-  function ghostText() {
-    if (Math.random() < 0.14) {
-      const msg = ghostLines[Math.floor(Math.random() * ghostLines.length)];
-
-      const el = document.createElement('div');
-      el.textContent = msg;
-      el.style.position = 'absolute';
-      el.style.left = Math.random() * 70 + '%';
-      el.style.top = Math.random() * 80 + '%';
-      el.style.color = '#ff4fc1';
-      el.style.opacity = '0.35';
-      el.style.pointerEvents = 'none';
-      el.style.fontFamily = 'monospace';
-      el.style.textShadow = '0 0 6px #ff4fc1';
-
-      document.body.appendChild(el);
-
-      setTimeout(() => el.remove(), 900);
-    }
-  }
-
-  setInterval(ghostText, 2200);
-
-  /* ---------- SOFT WHISPER EFFECT ---------- */
-  setInterval(() => {
-    if (window._corefall && Math.random() < 0.12) {
-      window._corefall.playGlitch();
-    }
-  }, 3000);
-})();
-
-(function () {
-  let chaosInterval = null;
-
-  function getCwd() {
-    if (typeof state !== 'undefined' && state.cwd) return state.cwd;
-    return null;
-  }
-
-  function isUtopia() {
-    return getCwd() === '/utopia';
-  }
-
-  function startChaos() {
-    if (chaosInterval) return;
-
-    chaosInterval = setInterval(() => {
-      // shake
-      document.body.style.animation = 'shake 0.12s infinite';
-
-      // screen distortion
-      document.documentElement.style.filter =
-        `contrast(${1 + Math.random() * 0.5})
-         brightness(${1 + Math.random() * 0.4})
-         hue-rotate(${Math.random() * 20}deg)`;
-
-      // jitter movement
-      document.body.style.transform =
-        `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
-
-      // glitch sound
-      if (window._corefall && Math.random() < 0.35) {
-        window._corefall.playGlitch();
+  /* ── ghost layer ── */
+  (function () {
+    setInterval(function () {
+      if (Math.random() < 0.25) {
+        document.documentElement.style.filter = 'contrast(' + (1 + Math.random() * 0.2) + ') brightness(' + (1 + Math.random() * 0.2) + ')';
+        setTimeout(function () { document.documentElement.style.filter = ''; }, 120);
       }
-    }, 220);
-  }
+      if (Math.random() < 0.18) {
+        document.body.style.transform = 'translate(' + (Math.random() * 2 - 1) + 'px, ' + (Math.random() * 2 - 1) + 'px)';
+        setTimeout(function () { document.body.style.transform = ''; }, 100);
+      }
+    }, 1400);
 
-  function stopChaos() {
-    if (!chaosInterval) return;
-
-    clearInterval(chaosInterval);
-    chaosInterval = null;
-
-    document.body.style.animation = '';
-    document.documentElement.style.filter = '';
-    document.body.style.transform = '';
-  }
-
-  setInterval(() => {
-    if (isUtopia()) {
-      startChaos();
-    } else {
-      stopChaos();
+    var ghostLines = ['proxy_penny', 'are you still there?', 'they are watching', 'don\'t trust the system', 'something is wrong here', 'please help me', 'safe mode: disabled', 'wake up', 'corruption detected'];
+    function ghostText() {
+      if (Math.random() < 0.14) {
+        var msg = ghostLines[Math.floor(Math.random() * ghostLines.length)];
+        var el = document.createElement('div');
+        el.textContent = msg;
+        el.style.cssText = 'position:absolute;left:' + (Math.random() * 70) + '%;top:' + (Math.random() * 80) + '%;color:#ff4fc1;opacity:0.35;pointer-events:none;font-family:monospace;text-shadow:0 0 6px #ff4fc1;z-index:10';
+        document.body.appendChild(el);
+        setTimeout(function () { el.remove(); }, 900);
+      }
     }
-  }, 200);
-})();
+    setInterval(ghostText, 2200);
+
+    setInterval(function () {
+      if (window._corefall && Math.random() < 0.12) window._corefall.playGlitch();
+    }, 3000);
+  })();
+
+  /* ── utopia chaos ── */
+  (function () {
+    var chaosInterval = null;
+    function isUtopia() { return state.cwd === '/utopia'; }
+    function startChaos() {
+      if (chaosInterval) return;
+      chaosInterval = setInterval(function () {
+        document.body.style.animation = 'shake 0.06s infinite';
+        document.documentElement.style.filter = 'contrast(' + (1 + Math.random() * 0.5) + ') brightness(' + (1 + Math.random() * 0.4) + ') hue-rotate(' + (Math.random() * 20) + 'deg)';
+        document.body.style.transform = 'translate(' + (Math.random() * 6 - 3) + 'px, ' + (Math.random() * 6 - 3) + 'px)';
+        if (window._corefall && Math.random() < 0.35) window._corefall.playGlitch();
+      }, 180);
+    }
+    function stopChaos() {
+      if (!chaosInterval) return;
+      clearInterval(chaosInterval); chaosInterval = null;
+      document.body.style.animation = '';
+      document.documentElement.style.filter = '';
+      document.body.style.transform = '';
+    }
+    setInterval(function () {
+      if (isUtopia()) startChaos(); else stopChaos();
+    }, 200);
+  })();
 }
-
-

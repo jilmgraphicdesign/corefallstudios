@@ -53,9 +53,10 @@
     </div>
     <div id="terminalWrap" class="terminal hidden">
       <div id="terminalOutput" aria-live="polite"></div>
-      <form id="terminalForm" onsubmit="return false;">
-        <input id="terminalInput" autocomplete="off" placeholder="type 'help'"/>
-      </form>
+      <div class="term-bar">
+        <span id="termPrompt" class="term-prompt"></span>
+        <input id="terminalInput" class="term-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      </div>
     </div>
   </main>
 <footer class="site-footer muted footer-kick">
