@@ -360,40 +360,94 @@ function startTerminal() {
   })();
 
   /* ── utopia chaos ── */
-  (function () {
-    var chaosInterval = null;
-    function isUtopia() { return state.cwd === '/utopia'; }
-    function startChaos() {
-      if (chaosInterval) return;
-      chaosInterval = setInterval(function () {
-        document.body.style.animation = 'shake 0.06s infinite';
-        document.documentElement.style.filter = 'contrast(' + (1 + Math.random() * 0.5) + ') brightness(' + (1 + Math.random() * 0.4) + ') hue-rotate(' + (Math.random() * 20) + 'deg)';
-        document.body.style.transform = 'translate(' + (Math.random() * 6 - 3) + 'px, ' + (Math.random() * 6 - 3) + 'px)';
-        if (window._corefall && Math.random() < 0.35) window._corefall.playGlitch();
-      var chaosMessages = [
-    'Utopia Admin: Mr. Kolbeck you are not authorized to be in the Utopia Directory',
-    'Utopia Admin: stop digging',
-    'Utopia Admin: if you run any of these programs you will be terminated',
-    'Utopia Admin: we have made a note of your aggressive disobedience',
-    'Utopia Admin: you have been warned'
-  ];
+(function () {
+  var chaosInterval = null;
+  var messageInterval = null;
+  var shownMessages = [];
 
-  if (Math.random() < 0.08) {
-    var msg = chaosMessages[Math.floor(Math.random() * chaosMessages.length)];
-    writeln(msg, '#FF4FC1');
+  // Function to check if the user is in the /utopia directory
+  function isUtopia() { return state.cwd === '/utopia'; }
+
+  // Chaos effects (animation, filter, transform)
+  function startChaos() {
+    if (chaosInterval) return;  // Prevent multiple intervals
+    chaosInterval = setInterval(function () {
+      document.body.style.animation = 'shake 0.12s infinite';
+      document.documentElement.style.filter = 'contrast(' + (1 + Math.random() * 0.5) + ') brightness(' + (1 + Math.random() * 0.4) + ') hue-rotate(' + (Math.random() * 20) + 'deg)';
+      document.body.style.transform = 'translate(' + (Math.random() * 4 - 2) + 'px, ' + (Math.random() * 6 - 3) + 'px)';
+      
+      // Play glitch effect randomly
+      if (window._corefall && Math.random() < 0.35) window._corefall.playGlitch();
+
+    }, 180);
   }
 
-}, 180);
+  // Stop chaos effects
+  function stopChaos() {
+    if (!chaosInterval) return;
+    clearInterval(chaosInterval);
+    chaosInterval = null;
+    document.body.style.animation = '';
+    document.documentElement.style.filter = '';
+    document.body.style.transform = '';
+  }
+
+  // Display a random chaos message
+  function displayChaosMessage() {
+    var chaosMessages = [
+      'Utopia Admin: Mr. Kolbeck you are not authorized to be in the Utopia Directory',
+      'Utopia Admin: stop digging Mr. Kolbeck',
+      'Utopia Admin: if you run any of these programs you will be terminated',
+      'Utopia Admin: we have made a note of your aggressive disobedience',
+      'Utopia Admin: Mr. Kolbeck you have been warned'
+    ];
+
+    // Filter out messages that have already been shown
+    var availableMessages = chaosMessages.filter(function (msg) {
+      return !shownMessages.includes(msg);
+    });
+
+    if (availableMessages.length > 0) {
+      var msg = availableMessages[Math.floor(Math.random() * availableMessages.length)];
+      shownMessages.push(msg); // Track the displayed message
+
+      // If all messages have been shown, reset the list
+      if (shownMessages.length === chaosMessages.length) {
+        return;
+      }
+
+      writeln(msg, '#FF4FC1'); // Display message
     }
-    function stopChaos() {
-      if (!chaosInterval) return;
-      clearInterval(chaosInterval); chaosInterval = null;
-      document.body.style.animation = '';
-      document.documentElement.style.filter = '';
-      document.body.style.transform = '';
+  }
+
+  // Start the chaos messages at a different interval
+  function startMessageChaos() {
+    if (messageInterval) return; // Prevent multiple intervals
+
+    messageInterval = setInterval(function () {
+      if (Math.random() < 0.08) {
+        displayChaosMessage();
+      }
+    }, 500); // 
+  }
+
+  // Stop the chaos messages
+  function stopMessageChaos() {
+    if (messageInterval) {
+      clearInterval(messageInterval);
+      messageInterval = null;
     }
-    setInterval(function () {
-      if (isUtopia()) startChaos(); else stopChaos();
-    }, 200);
-  })();
+  }
+
+  // Start or stop chaos based on directory
+  setInterval(function () {
+    if (isUtopia()) {
+      startChaos();
+      startMessageChaos();
+    } else {
+      stopChaos();
+      stopMessageChaos();
+    }
+  }, 200);
+})();
 }
