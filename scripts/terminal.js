@@ -81,7 +81,7 @@ ${worldText}
     );
     blank();
     println('You have ⚠️ 1 message unread on terminal from unknown sender:', true, '#FFD866');
-    listItems([
+    println([
       'command to read → cat readme.txt',
     ]);
 
