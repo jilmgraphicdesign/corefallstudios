@@ -666,7 +666,7 @@ function fxAudio() {
 
     chaosInterval = setInterval(() => {
       // shake
-      document.body.style.animation = 'shake 0.06s infinite';
+      document.body.style.animation = 'shake 0.12s infinite';
 
       // screen distortion
       document.documentElement.style.filter =
@@ -682,7 +682,7 @@ function fxAudio() {
       if (window._corefall && Math.random() < 0.35) {
         window._corefall.playGlitch();
       }
-    }, 180);
+    }, 220);
   }
 
   function stopChaos() {
