@@ -39,7 +39,7 @@ function startTerminal() {
     fs: {
       '/': ['XXXXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
-      '/XXXX': [],
+      '/XXXXXX': [],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
       '/pVb&^5_pP0*^}': [],
