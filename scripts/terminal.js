@@ -37,7 +37,7 @@ function startTerminal() {
   var state = {
     cwd: '/',
     fs: {
-      '/': ['XXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
+      '/': ['XXXXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/XXXX': [],
       '/logs': ['alerts.log', 'attacks.feed'],
@@ -191,7 +191,7 @@ function startTerminal() {
       'cd /                 return to root',
       'cat <file>           display file contents',
       'run <program>        execute a program',
-      'pwd                  print working directory',
+      'pwd                  display what directory you are in',
       'whoami               display current user',
       'files                list all known files',
       'folders              list all known directories',
