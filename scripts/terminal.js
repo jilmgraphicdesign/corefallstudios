@@ -155,6 +155,10 @@ function startTerminal() {
 
   /* ── command router ── */
   function processCommand(cl) {
+     if (cl.trim().toLowerCase() === "penny knows") {
+    showPenny();
+    return;
+  }
     var parts = cl.split(/\s+/);
     var cmd = (parts[0] || '').toLowerCase();
     var args = parts.slice(1);
@@ -269,6 +273,12 @@ function startTerminal() {
     writeln('  oog data logs', '#FFD866');
   }
 
+ function showPenny() {
+  writeln('Utopia Admin', '#808080');
+  writeln('  Mr. Kolbeck, we discussed this already. The streamer has been taken care of.', '#FFD866');
+  writeln('  Let this go and return to business as usual or we will be forced to make a note of your insubordination.', '#FFD866');
+}
+
   function handleRun(name) {
     switch (name) {
       case 'disable_safe_mode':
@@ -360,7 +370,20 @@ function startTerminal() {
         document.documentElement.style.filter = 'contrast(' + (1 + Math.random() * 0.5) + ') brightness(' + (1 + Math.random() * 0.4) + ') hue-rotate(' + (Math.random() * 20) + 'deg)';
         document.body.style.transform = 'translate(' + (Math.random() * 6 - 3) + 'px, ' + (Math.random() * 6 - 3) + 'px)';
         if (window._corefall && Math.random() < 0.35) window._corefall.playGlitch();
-      }, 180);
+      var chaosMessages = [
+    'Utopia Admin: Mr. Kolbeck you are not authorized to be in the Utopia Directory',
+    'Utopia Admin: stop digging',
+    'Utopia Admin: if you run any of these programs you will be terminated',
+    'Utopia Admin: we have made a note of your aggressive disobedience',
+    'Utopia Admin: you have been warned'
+  ];
+
+  if (Math.random() < 0.08) {
+    var msg = chaosMessages[Math.floor(Math.random() * chaosMessages.length)];
+    writeln(msg, '#FF4FC1');
+  }
+
+}, 180);
     }
     function stopChaos() {
       if (!chaosInterval) return;
