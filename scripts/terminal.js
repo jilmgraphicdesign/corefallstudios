@@ -348,7 +348,7 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
         glitch('Safe mode DISABLED. Simulation boundaries thinning…');
         setTimeout(() => {
           location.href = 'outcomes/disable.html';
-        }, 900);
+        }, 1200);
         break;
 
       case 'destroy_system':
@@ -369,7 +369,7 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
         setTimeout(() => {
           println('Exfiltration complete. Artifacts exported.', true, '#4EC9B0');
           location.href = 'outcomes/exfiltrate.html';
-        }, 1000);
+        }, 1200);
         break;
 
       default:

@@ -193,6 +193,42 @@
     nav.appendChild(pill);
   }
 })();
+const ghostLines = [
+    'I am proxy_penny',
+    'where am I?',
+    'Base 64',
+    'Its all a lie',
+    'something is wrong here',
+    'please help me',
+    'safe mode: disabled',
+    'wake up',
+    'corruption detected'
+  ];
+
+  function ghostText() {
+    if (Math.random() < 0.14) {
+      const msg = ghostLines[Math.floor(Math.random() * ghostLines.length)];
+
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position = 'absolute';
+      el.style.left = Math.random() * 70 + '%';
+      el.style.top = Math.random() * 80 + '%';
+      el.style.color = '#ff4fc1';
+      el.style.opacity = '0.35';
+      el.style.pointerEvents = 'none';
+      el.style.fontFamily = 'monospace';
+      el.style.textShadow = '0 0 6px #ff4fc1';
+
+      document.body.appendChild(el);
+
+      setTimeout(() => el.remove(), 900);
+    }
+  }
+
+  setInterval(ghostText, 2200);
+
+
 
 
 
