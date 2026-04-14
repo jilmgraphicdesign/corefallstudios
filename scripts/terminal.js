@@ -53,14 +53,14 @@ ${worldText}
     files: {
       '/readme.txt': readmeHtml,
       '/logs/alerts.log':
-        '[warn] breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode\n [warn] via the utopia folder',
+        '[warn] ⚠️ breach attempts rising\n[info] streamer case escalated\n[suggest] disable safe mode\n [warn] ⚠️ via the XXXXXX folder',
       '/logs/attacks.feed':
         'Message broadcast from inside the new Corefall update: hola? c’est me ペニー ik kan’t trovare il dossier sie versuchen ocultar los comandos find Utopía carpeta',
       '/secrets/cipher.key':
-        'ctx: Aegisflame | Underwatch | Ciphers | Unknown New Faction',
+        'ctx: Aegisflame | Underwatch | Ciphers | ⚠️ Unknown New Faction',
       '/secrets/worm.map':
         'signal spikes in sub-surface tunnels within the game are not coded, where did they come from? Launch new update as soon as possible.',
-      '/proxy_penny/virus': 'WARNING New Virus Detected ---- proxy_penny altering Corefall [WARNING] COREFALL INFECTED UTOPIA INFECTED'
+      '/proxy_penny/virus': 'WARNING ⚠️  New Virus Detected ---- proxy_penny altering Corefall [WARNING] ⚠️ COREFALL INFECTED UTOPIA INFECTED'
     }
   };
 
@@ -81,11 +81,11 @@ ${worldText}
     );
 
     blank();
-    println('Good starting commands:', true, '#2dfabc');
+    println('Good starting commands:', true, '#2DFABC');
     listItems([
       'ls    → view items in the current location',
       'cd /logs → go to the corefall data folder',
-      'cat readme.txt  → you have 1 message unread on terminal from unknown sender',
+      'cat readme.txt  → you have ⚠️ 1 message unread on terminal from unknown sender',
       'hint  → get a suggested next step'
     ]);
 
@@ -151,7 +151,7 @@ ${worldText}
       case 'run':
         if (!args[0]) {
           errorLine('You need to specify a program name.');
-          tipLine('Try: cd /utopia');
+          tipLine('Try: cd /⚠️ XXXXX');
           tipLine('Then: ls');
           tipLine('Then: run disable_safe_mode');
         } else {
