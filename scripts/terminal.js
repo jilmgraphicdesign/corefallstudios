@@ -44,11 +44,14 @@ ${worldText}
   const state = {
     cwd: '/',
     fs: {
-      '/': ['XXXX', 'logs', 'secrets', 'pVb&^5_pP0*^}', 'readme.txt'],
+      '/': ['XXXXXX', 'logs', 'secrets', 'pVb&^5_pP0#^}', 'readme.txt'],
       '/utopia': ['disable_safe_mode*', 'destroy_system*', 'exfiltrate*'],
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
       '/proxy_penny': ['virus']
+      '/XXXXXX': ['⚠️ corrupted wrong name of folder ⚠️'],
+      '/pVb&^5_pP0#^': ['⚠️ corrupted wrong name of folder ⚠️'],
+
     },
     files: {
       '/readme.txt': readmeHtml,
@@ -155,7 +158,7 @@ ${worldText}
       case 'run':
         if (!args[0]) {
           errorLine('You need to specify a program name.');
-          tipLine('Try: cd /⚠️ XXXXX');
+          tipLine('Try: cd /⚠️ XXXXXX');
           tipLine('Then: ls');
           tipLine('Then: run disable_safe_mode');
         } else {
