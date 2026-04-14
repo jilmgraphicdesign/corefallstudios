@@ -227,7 +227,20 @@ const ghostLines = [
   }
 
   setInterval(ghostText, 2200);
+function openCNN() {
+  document.getElementById("cnn-overlay").style.display = "block";
+  document.getElementById("cnn-popup").style.display = "block";
+}
 
+function closeCNN() {
+  document.getElementById("cnn-overlay").style.display = "none";
+  document.getElementById("cnn-popup").style.display = "none";
+}
+
+/* Auto open after delay (ARG vibe 👀) */
+window.addEventListener("load", () => {
+  setTimeout(openCNN, 2500);
+});
 
 
 
