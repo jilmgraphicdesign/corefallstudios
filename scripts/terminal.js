@@ -13,7 +13,7 @@ window.unlockAdmin = function () {
       'Incorrect passphrase. Decode the three Intel strings (Base64) and enter the 3-word phrase.';
   }
 };
-
+let corruptionLevel = 0;
 function startTerminal() {
   const out = document.getElementById('terminalOutput');
   const input = document.getElementById('terminalInput');
@@ -463,4 +463,245 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
       document.body.style.animation = 'none';
     }, 1000);
   }
+  function infectUI(intensity = 1) {
+  const root = document.documentElement;
+  const hue = Math.floor(Math.random() * 40 - 20);
+  const contrast = 1 + Math.random() * 0.4;
+
+  root.style.filter = `
+    hue-rotate(${hue}deg)
+    contrast(${contrast})
+    brightness(${1 + Math.random() * 0.2})
+  `;
+
+  setTimeout(() => {
+    root.style.filter = '';
+  }, 120 + intensity * 80);
 }
+
+function screenTear() {
+  if (Math.random() < 0.25) {
+    document.body.classList.add('glitching');
+    setTimeout(() => {
+      document.body.classList.remove('glitching');
+    }, 150 + Math.random() * 300);
+  }
+}
+
+function whisper() {
+  const phrases = [
+    '...you are not in control',
+    'it sees the inputs',
+    'stop typing',
+    'this is not a terminal',
+    'where am I?',
+    'you opened it',
+    'we are still here',
+    'don’t go to /utopia'
+  ];
+
+  if (Math.random() < 0.18) {
+    const msg = phrases[Math.floor(Math.random() * phrases.length)];
+    setTimeout(() => {
+      println(msg, true, '#ff4fc1');
+      window._corefall && window._corefall.playGlitch();
+    }, 200 + Math.random() * 800);
+  }
+}
+
+function audioDisturbance() {
+  if (!window._corefall) return;
+
+  if (Math.random() < 0.3) {
+    window._corefall.playGlitch();
+  }
+
+  if (Math.random() < 0.1 && window._corefall.playWhisper) {
+    window._corefall.playWhisper();
+  }
+}
+
+function corruptInputEcho(text) {
+  if (Math.random() < 0.2) {
+    return text
+      .replace(/[aeiou]/gi, (c) => (Math.random() < 0.5 ? c : '?'))
+      .replace(/./g, (c) => (Math.random() < 0.03 ? '█' : c));
+  }
+  return text;
+}
+function fxPulse() {
+  const root = document.documentElement;
+
+  root.style.transition = 'filter 0.08s linear';
+  root.style.filter = `brightness(${1 + Math.random() * 0.2}) contrast(${1 + Math.random() * 0.2})`;
+
+  setTimeout(() => {
+    root.style.filter = '';
+  }, 80);
+}
+function fxWhisper(println) {
+  const lines = [
+    '...hello?',
+    'where am I?',
+    'who are you?',
+    'something feels wrong',
+    'please help me!',
+    'don’t trust them',
+  ];
+
+  if (Math.random() < 0.15) {
+    const msg = lines[Math.floor(Math.random() * lines.length)];
+
+    setTimeout(() => {
+      println(msg, true, '#777');
+    }, 400 + Math.random() * 800);
+  }
+function fxAudio() {
+  if (!window._corefall) return;
+
+  if (Math.random() < 0.25) {
+    window._corefall.playGlitch();
+  }
+ }
+  }
+  function fxCorruptText(text) {
+  if (Math.random() < 0.1) {
+    return text.replace(/[aeiou]/g, (c) =>
+      Math.random() < 0.3 ? c.toUpperCase() : c
+    );
+  }
+  return text;
+}
+/* =========================
+   CORE GHOST EFFECT LAYER
+   (paste at bottom only)
+========================= */
+
+(function initGhostLayer() {
+  const out = document.getElementById('terminalOutput');
+  if (!out) return;
+
+  /* ---------- VISUAL GLITCH LOOP ---------- */
+  setInterval(() => {
+    if (Math.random() < 0.25) {
+      document.documentElement.style.filter =
+        `contrast(${1 + Math.random() * 0.2}) brightness(${1 + Math.random() * 0.2})`;
+
+      setTimeout(() => {
+        document.documentElement.style.filter = '';
+      }, 120);
+    }
+
+    if (Math.random() < 0.18) {
+      document.body.style.transform =
+        `translate(${Math.random() * 2 - 1}px, ${Math.random() * 2 - 1}px)`;
+
+      setTimeout(() => {
+        document.body.style.transform = '';
+      }, 100);
+    }
+  }, 1400);
+
+  /* ---------- GHOST TEXT SYSTEM ---------- */
+  const ghostLines = [
+    'proxy_penny',
+    'are you still there?',
+    'they are watching',
+    'don’t trust the system',
+    'something is wrong here',
+    'please help me',
+    'safe mode: disabled',
+    'wake up',
+    'corruption detected'
+  ];
+
+  function ghostText() {
+    if (Math.random() < 0.14) {
+      const msg = ghostLines[Math.floor(Math.random() * ghostLines.length)];
+
+      const el = document.createElement('div');
+      el.textContent = msg;
+      el.style.position = 'absolute';
+      el.style.left = Math.random() * 70 + '%';
+      el.style.top = Math.random() * 80 + '%';
+      el.style.color = '#ff4fc1';
+      el.style.opacity = '0.35';
+      el.style.pointerEvents = 'none';
+      el.style.fontFamily = 'monospace';
+      el.style.textShadow = '0 0 6px #ff4fc1';
+
+      document.body.appendChild(el);
+
+      setTimeout(() => el.remove(), 900);
+    }
+  }
+
+  setInterval(ghostText, 2200);
+
+  /* ---------- SOFT WHISPER EFFECT ---------- */
+  setInterval(() => {
+    if (window._corefall && Math.random() < 0.12) {
+      window._corefall.playGlitch();
+    }
+  }, 3000);
+})();
+
+(function () {
+  let chaosInterval = null;
+
+  function getCwd() {
+    // safely grab cwd from terminal state
+    if (typeof state !== 'undefined' && state.cwd) return state.cwd;
+    return null;
+  }
+
+  function isUtopia() {
+    return getCwd() === '/utopia';
+  }
+
+  function startChaos() {
+    if (chaosInterval) return;
+
+    chaosInterval = setInterval(() => {
+      // shake (strong)
+      document.body.style.animation = 'shake 0.06s infinite';
+
+      // screen distortion
+      document.documentElement.style.filter =
+        `contrast(${1 + Math.random() * 0.5})
+         brightness(${1 + Math.random() * 0.4})
+         hue-rotate(${Math.random() * 20}deg)`;
+
+      // jitter movement
+      document.body.style.transform =
+        `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
+
+      // glitch sound (if exists)
+      if (window._corefall && Math.random() < 0.35) {
+        window._corefall.playGlitch();
+      }
+    }, 180);
+  }
+
+  function stopChaos() {
+    if (!chaosInterval) return;
+
+    clearInterval(chaosInterval);
+    chaosInterval = null;
+
+    document.body.style.animation = '';
+    document.documentElement.style.filter = '';
+    document.body.style.transform = '';
+  }
+
+  setInterval(() => {
+    if (isUtopia()) {
+      startChaos();
+    } else {
+      stopChaos();
+    }
+  }, 200);
+})();
+}
+
+

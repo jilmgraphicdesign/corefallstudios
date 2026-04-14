@@ -769,12 +769,22 @@ html{ scroll-behavior: smooth; }
 .theme-lime .ks-link:hover .ks-swap{
   filter: drop-shadow(0 0 10px rgba(200,255,90,.28));
 }
-.terminal-ascii {
-  white-space: pre;
-  font-family: monospace;
-  line-height: 1.05;
-  margin: 0;
-  color: #00ff9c;
+body.glitching::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03) 0px,
+    rgba(0,0,0,0.05) 2px
+  );
+  pointer-events: none;
+  animation: scan 0.08s linear infinite;
+}
+
+@keyframes scan {
+  from { transform: translateY(0); }
+  to { transform: translateY(4px); }
 }
 
 
