@@ -81,7 +81,7 @@ ${worldText}
     );
 
     blank();
-    println('Good starting commands:', true, '#FFD866');
+    println('Good starting commands:', true, '#2dfabc');
     listItems([
       'ls    → view items in the current location',
       'cd /logs → go to the corefall data folder',
@@ -310,10 +310,10 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
     section('All Folders');
     listItems([
       '/',
-      '/utopia',
+      '/XXXXXX',
       '/logs',
       '/secrets',
-      '/proxy_penny'
+      '/p%$#!_p*&^%'
     ]);
   }
 
@@ -325,7 +325,7 @@ S[FORENSICS] 2025-08-21T12:39:45Z sig=S-0x29 match=0.92 src=SteelCity-IX out="ha
       '/logs/attacks.feed',
       '/secrets/cipher.key',
       '/secrets/worm.map',
-      '/proxy_penny/world.txt'
+      '/proxy_penny/virus'
     ]);
   }
 
@@ -574,7 +574,6 @@ function fxAudio() {
 }
 /* =========================
    CORE GHOST EFFECT LAYER
-   (paste at bottom only)
 ========================= */
 
 (function initGhostLayer() {
@@ -650,7 +649,6 @@ function fxAudio() {
   let chaosInterval = null;
 
   function getCwd() {
-    // safely grab cwd from terminal state
     if (typeof state !== 'undefined' && state.cwd) return state.cwd;
     return null;
   }
@@ -663,7 +661,7 @@ function fxAudio() {
     if (chaosInterval) return;
 
     chaosInterval = setInterval(() => {
-      // shake (strong)
+      // shake
       document.body.style.animation = 'shake 0.06s infinite';
 
       // screen distortion
@@ -676,7 +674,7 @@ function fxAudio() {
       document.body.style.transform =
         `translate(${Math.random() * 6 - 3}px, ${Math.random() * 6 - 3}px)`;
 
-      // glitch sound (if exists)
+      // glitch sound
       if (window._corefall && Math.random() < 0.35) {
         window._corefall.playGlitch();
       }
