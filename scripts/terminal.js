@@ -49,9 +49,6 @@ ${worldText}
       '/logs': ['alerts.log', 'attacks.feed'],
       '/secrets': ['cipher.key', 'worm.map'],
       '/proxy_penny': ['virus']
-      '/XXXXXX': ['⚠️ corrupted wrong name of folder ⚠️'],
-      '/pVb&^5_pP0#^': ['⚠️ corrupted wrong name of folder ⚠️'],
-
     },
     files: {
       '/readme.txt': readmeHtml,
