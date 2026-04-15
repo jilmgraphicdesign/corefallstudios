@@ -953,6 +953,17 @@ body.glitching::after {
     z-index: 9999;
   }
 }
+/* Center this specific page's content */
+.content{
+  justify-items: center;
+}
+
+/* Keep cards readable and centered */
+.content > article.card{
+  max-width: 760px;
+  width: 100%;
+}
+
 
 /* Proxy_Penny */
 /* cd utopia */
