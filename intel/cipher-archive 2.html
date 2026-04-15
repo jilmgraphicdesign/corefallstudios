@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Ciphers — Archive — Intel</title>
+  <link rel="stylesheet" href="../styles/theme.css" />
+  <script defer src="../scripts/core.js"></script>
+  <script defer src="../scripts/auth.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (!window._cfAuth || !window._cfAuth.isLoggedIn()) location.replace('../unauthorized.html');
+    });
+  </script>
+</head>
+<body class="noise theme-lime">
+  <div id="bleed" class="bleed hidden"></div>
+ <header class="site-header header-inline header-compact">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <a class="brand-logo" data-bleed href="../intranet.html">
+  <img src="../media/corefall_studios_logo.png" alt="Corefall Studios">
+</a>
+      <span class="brand-tag">· Employee Intranet</span>
+    </div>
+
+  <nav class="main-nav">
+    <a data-bleed href="../intranet.html">Dashboard</a>
+    <a data-bleed href="../admin.html">Admin</a>
+    <a data-bleed href="../index.html">Public Site</a>
+  </nav>
+</header>
+
+
+  <main class="content">
+    <article class="card">
+      <div class="page-title-wrap glitchy">
+  <h1 class="page-title" data-text="The Ciphers — Archive — Intel">
+    The Ciphers — Archive — Intel
+  </h1>
+</div>
+      <h3>Faction Playstyle:</h3>
+      <p> A cult that embraces the Worm as the next evolutionary step for The Core. Ciphers thrive on manipulation, subversion, and forbidden knowledge, making Assassins and Psychics their perfect classes.</p>
+      <h3>Gameplay Areas & Missions:</h3>
+      <ul>
+        <li>Corruption Embrace: Spread the Worm’s influence by infiltrating and corrupting key systems, or creating new Worm-infested entities.</li>
+        <li>Faction-Based PvP: Engage in subversive PvP, destabilizing other factions by undermining their efforts and spreading corruption.</li>
+      </ul>
+      <h3>Rewards:</h3>
+      <ul>
+        <li>Dark Knowledge: Special lore-based powers and information only acquired through interactions with the Ciphers.</li>
+      </ul>
+      <article class="card sysnote sysnote--todo">
+  <header class="sysnote__hdr">EMPLOYEE TASKS — CIPHER ANOMALIES</header>
+  <div class="sysnote__body">
+    <div class="sysnote__item">
+      <span class="sysnote__label">PROBLEM</span>
+      <div class="sysnote__text">
+        <strong>OOG Data Manipulation:</strong>
+        Occasionally, malicious internals under the Ciphers banner disrupt the game itself by exploiting hacks, creating temporary in-game events that affect all players for a limited time. Audit Cipher-driven out-of-game interference. Identify and document any exploits that trigger temporary, global in-game events. Collect timestamps, affected player counts, and reproduction steps in staging. Deliver a brief with recommended containment (rate limits, rule updates, or event invalidation) for LiveOps review.
+        <p class="muted tiny">Note: Use command 'oog data logs' in the admin console.</p>
+      </div>
+    </div>
+
+    <div class="sysnote__item">
+      <span class="sysnote__label">PROBLEM</span>
+      <div class="sysnote__text">
+        <strong>Hacked Abilities:</strong>
+        Powers acquired through illegal out-of-game mods and hacks. These abilities allow manipulation of game systems or enhancements to combat with Worm-based powers. Catalogue unauthorized “hacked abilities” acquired via out-of-game mods. For each: record signature, distribution vector, gameplay impact (especially Worm-aligned buffs), and stability risk. Quarantine where feasible and propose countermeasures. 
+        <em>(Note: these are not supported features and may cause system instability or other disruptions—flag critical findings to CSO immediately.)</em>
+        <p class="muted tiny">Note: Inspect files "/logs/alerts.log", "/logs/attacks.feed", "/secrets/cipher.key", "/secrets/worm.map" in the admin console.</p>
+      </div>
+    </div>
+  </div>
+</article>
+      <article class="card sysnote sysnote--todo">
+      <pre class="encoded">Q09SRQ==</pre>
+      <p class="tiny muted info">Note: Encoded for transport integrity. Decoding permitted.</p>
+    </article>
+  </main>
+  <!-- Hint:'Q09SRQ==' | base64  -->
+<footer class="site-footer muted">© Corefall Studios — an ARG made by Safe Mode: Disabled</footer>
+</body>
+</html>
