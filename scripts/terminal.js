@@ -1,6 +1,6 @@
 window.unlockAdmin = function () {
   var input = document.getElementById('passphrase');
-  var ok = window._cfAuth && window._cfAuth.checkPassphrase(input.value);
+  var ok = /\bWAKE\s+THE\s+CORE\b/i.test(input.value);
   var gateMsg = document.getElementById('gateMsg');
 
   if (ok) {
