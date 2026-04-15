@@ -5,7 +5,6 @@
   function transitionTo(href){
     if (!bleed) { location.href = href; return; }
     bleed.classList.add('active');
-    playGlitch();
     setTimeout(()=> location.href = href, 450);
   }
   document.querySelectorAll('[data-bleed]').forEach(a=>{

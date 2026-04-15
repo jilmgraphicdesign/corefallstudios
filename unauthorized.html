@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SECURITY ALERT — Corefall Studios</title>
+  <link rel="stylesheet" href="styles/theme.css" />
+  <style>
+    body { background: #04070f; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+    .breach-card {
+      max-width: 560px;
+      width: 90%;
+      background: #0f1525;
+      border: 2px solid #F44747;
+      border-radius: 16px;
+      padding: 40px 36px;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(244,71,71,.15);
+    }
+    .breach-card h1 { color: #F44747; font-size: 22px; margin-bottom: 8px; letter-spacing: 2px; }
+    .breach-card .icon { font-size: 48px; margin-bottom: 16px; }
+    .breach-card p { color: #8899bb; font-size: 14px; line-height: 1.7; margin-bottom: 12px; }
+    .breach-card .ip-box {
+      background: #04070f;
+      border: 1px solid #25355a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: #F44747;
+      margin: 20px 0;
+      text-align: left;
+    }
+    .breach-card .ref { font-size: 11px; color: #4a5a7a; margin-top: 20px; }
+  </style>
+</head>
+<body class="noise">
+  <div class="breach-card">
+    <div class="icon">⛔</div>
+    <h1>UNAUTHORIZED ACCESS DETECTED</h1>
+    <p>Your attempt to access restricted Corefall Studios infrastructure without proper authorization has been flagged.</p>
+    <div class="ip-box">
+      <div>STATUS: LOGGED</div>
+      <div>TIMESTAMP: <span id="ts"></span></div>
+      <div>SESSION: <span id="sid"></span></div>
+      <div>ACTION: Reported to Corefall Security Operations</div>
+    </div>
+    <p>This incident has been recorded and forwarded to the <strong style="color:#dce4f5">Corefall Studios Security Team</strong> for review. Repeated unauthorized access attempts may result in permanent restriction.</p>
+    <p class="ref">Ref: CF-SEC-<span id="ref"></span> · Corefall Studios Incident Response</p>
+  </div>
+  <script>
+    document.getElementById('ts').textContent = new Date().toISOString();
+    document.getElementById('sid').textContent = (Math.random().toString(36).slice(2,10) + Math.random().toString(36).slice(2,10)).toUpperCase();
+    document.getElementById('ref').textContent = String(Date.now()).slice(-8);
+  </script>
+</body>
+</html>

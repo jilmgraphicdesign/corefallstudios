@@ -6,21 +6,8 @@
   <title>Admin — Corefall</title>
   <link rel="stylesheet" href="styles/theme.css" />
   <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/auth.js"></script>
   <script defer src="scripts/terminal.js"></script>
-
-  <script defer>
-    document.addEventListener('DOMContentLoaded', function(){
-      var role = localStorage.getItem('corefall_role');
-      var locked = document.getElementById('locked');
-      var gate = document.getElementById('gate');
-      var term = document.getElementById('terminalWrap');
-      if (role !== 'admin') {
-        if (gate) gate.classList.add('hidden');
-        if (term) term.classList.add('hidden');
-        if (locked) locked.classList.remove('hidden');
-      }
-    });
-  </script>
 
 </head>
 <body class="noise theme-lime">
@@ -42,22 +29,9 @@
   </nav>
 </header>
 
-  <main class="content">
-    <div id="locked" class="card hidden"><h2>Admin Panel Locked</h2><p class="muted">CSO permission required.</p><div class="locked-stamp">CSO PERMISSION REQUIRED</div></div>
-    <div id="gate" class="card">
-      <h3>Enter 3-word passphrase</h3>
-      <input id="passphrase" placeholder="e.g., one two three" />
-      <button class="button" onclick="window.unlockAdmin()">Unlock</button>
-      <p class="tiny muted info">Hint: Decode Base64 strings from Intel pages.</p>
-      <p id="gateMsg" class="error"></p>
-    </div>
-    <div id="terminalWrap" class="terminal hidden">
-      <div id="terminalOutput" aria-live="polite"></div>
-      <div class="term-bar">
-        <span id="termPrompt" class="term-prompt"></span>
-        <input id="terminalInput" class="term-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-      </div>
-    </div>
+  <main id="adminMain" class="content">
+    <!-- Always visible -->
+    <div class="card"><h2>Admin Panel Locked</h2><p class="muted">CSO permission required.</p><div class="locked-stamp">CSO PERMISSION REQUIRED</div></div>
   </main>
 <footer class="site-footer muted footer-kick">
   <span>© Corefall Studios — an ARG made by Safe Mode: Disabled, now available on</span>
@@ -76,5 +50,41 @@
     </span>
   </a>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var auth = window._cfAuth;
+
+  /* Not logged in at all → unauthorized */
+  if (!auth || !auth.isLoggedIn()) {
+    location.replace('unauthorized.html');
+    return;
+  }
+
+  /* Logged in → inject hidden gate + terminal into the DOM */
+  var main = document.getElementById('adminMain');
+
+  var gate = document.createElement('div');
+  gate.id = 'gate';
+  gate.className = 'card hidden';
+  gate.innerHTML =
+    '<h3>Enter 3-word passphrase</h3>' +
+    '<input id="passphrase" placeholder="e.g., one two three" />' +
+    '<button class="button" onclick="window.unlockAdmin()">Unlock</button>' +
+    '<p class="tiny muted info">Hint: Decode Base64 strings from Intel pages.</p>' +
+    '<p id="gateMsg" class="error"></p>';
+  main.appendChild(gate);
+
+  var termWrap = document.createElement('div');
+  termWrap.id = 'terminalWrap';
+  termWrap.className = 'terminal hidden';
+  termWrap.innerHTML =
+    '<div id="terminalOutput" aria-live="polite"></div>' +
+    '<div class="term-bar">' +
+      '<span id="termPrompt" class="term-prompt"></span>' +
+      '<input id="terminalInput" class="term-field" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />' +
+    '</div>';
+  main.appendChild(termWrap);
+});
+</script>
 </body>
 </html>

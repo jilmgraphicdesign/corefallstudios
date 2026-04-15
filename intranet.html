@@ -6,8 +6,13 @@
   <title>Intranet — Corefall</title>
   <link rel="stylesheet" href="styles/theme.css" />
   <script defer src="scripts/core.js"></script>
+  <script defer src="scripts/auth.js"></script>
   <script defer>
-    if (!localStorage.getItem('corefall_logged_in')) location.replace('login.html');
+    document.addEventListener('DOMContentLoaded', function(){
+      if (!window._cfAuth || !window._cfAuth.isLoggedIn()) {
+        location.replace('login.html');
+      }
+    });
   </script>
 </head>
 <body class="noise theme-lime">

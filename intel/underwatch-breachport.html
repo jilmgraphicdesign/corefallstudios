@@ -6,6 +6,12 @@
   <title>Underwatch Legion — Breachport — Intel</title>
   <link rel="stylesheet" href="../styles/theme.css" />
   <script defer src="../scripts/core.js"></script>
+  <script defer src="../scripts/auth.js"></script>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function(){
+      if (!window._cfAuth || !window._cfAuth.isLoggedIn()) location.replace('../unauthorized.html');
+    });
+  </script>
 </head>
 <body class="noise theme-lime">
   <div id="bleed" class="bleed hidden"></div>
