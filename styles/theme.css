@@ -176,8 +176,6 @@ input,textarea{background:#0a0e19;color:var(--text);border:1px solid #25355a;bor
 
 :root { --header-h: 72px; } /* header adjustments */
 
-:root { --header-h: 72px; } /* header adjustments */
-
 .avatar{
   position: absolute;
   bottom: 6vh;
@@ -614,7 +612,7 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(200,255,90,.55);
 }
 
-/* Reduce motion / tiny screens → keep first frame only */
+/* Reduce motion */
 @media (max-width: 540px), (prefers-reduced-motion: reduce){
   .avatar-nav{ display:none; }
   .avatar-slide{ opacity:0 !important; }
@@ -666,7 +664,7 @@ html{ scroll-behavior: smooth; }
   background: rgba(200,255,90,.14);
 }
 
-/* Fallback when the link is missing (e.g., Terminal Help) */
+/* Fallback  */
 .main-nav .nav-pill-current{
   display:inline-flex; align-items:center; height:34px;
   padding:0 12px; border-radius:999px;
@@ -710,7 +708,7 @@ html{ scroll-behavior: smooth; }
   opacity: 0;                       /* hidden until hover */
   transition: opacity .2s ease, background-position .35s ease;
 
-  /* IMPORTANT: path is relative to /styles/theme.css */
+  
   -webkit-mask-image: url('../media/corefall_studios_logo.png');
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
@@ -953,12 +951,12 @@ body.glitching::after {
     z-index: 9999;
   }
 }
-/* Center this specific page's content */
+/* Center content */
 .content{
   justify-items: center;
 }
 
-/* Keep cards readable and centered */
+/* cards centered */
 .content > article.card{
   max-width: 760px;
   width: 100%;
