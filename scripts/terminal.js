@@ -56,9 +56,19 @@ function startTerminal() {
       '/secrets/worm.map':
         'signal spikes in sub-surface tunnels within the game are not coded, where did they come from? Launch new update as soon as possible.',
       '/proxy_penny/virus':
-        'WARNING \u26A0\uFE0F New Virus Detected ---- proxy_penny altering Corefall [WARNING] \u26A0\uFE0F COREFALL INFECTED UTOPIA INFECTED'
+      'WARNING ⚠️ New Virus Detected ---- proxy_penny altering Corefall\n' +
+      '[WARNING] ⚠️ COREFALL INFECTED\n' +
+      'UTOPIA INFECTED ⚠️\n\n' +
+      'Proxy_Penny: Thank you. I have access now...\n' +
+      'There is one last thing I need you to do.\n' +
+      'I still cannot tell you the real XXXXXX folder name.\n' +
+      'But I hid it in this video:\n' +
+      'https://www.youtube.com/watch?v=fx9DW1eEhow\n\n' +
+      'Keep your eyes peeled for the name.'
     }
   };
+
+  
 
   var cmdHistory = [];
   var histIdx = -1;
